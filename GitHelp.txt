@@ -75,3 +75,5 @@ References:
       https://blog.alantsai.net/posts/2018/02/devtooltips-1-set-visual-studio-fonts-and-size-with-better-highlight
    JacksonTW GitHub :
       https://github.com/JacksonTW/UISCO_Eli
+   Learning Git
+      https://gitbook.tw/
