@@ -37,3 +37,19 @@ collaborate (see also: git help workflows)
 concept guides. See 'git help <command>' or 'git help <concept>'
 to read about a specific subcommand or concept.
 See 'git help git' for an overview of the system.
+
+---------------How to set up "Git" & "Github"--------------------------------
+1. Install Git from https://git-scm.com/downloads
+2. Choose the file which u want to update to Github (the file which is filled ur source code)
+3. Open the Visual Studio Code and 'Ctrl + " ` " ' to open 'terminal'
+4. #  git init : ' initialize file. '
+5. #  git config --global user.name "JacksonTW"
+6. #  git config --global user.email "wangweifan115@gmail.com"
+------------------To set log in--------------------------------
+7. #  git add . : ' To add all of the flie which u choose 
+8. #  git commit -m "ur commit" : 'After updating, it will show in the GitHub. '
+9. #  git remote add origin https://github.com/JacksonTW/UISCO_Eli.git : ' already update. '
+10. #  git push -u origin master : ' Updating. '
+
+---------------How to Download the code from github --------------------------
+1. #  git clone https://github.com/JacksonTW/UISCO_Eli.git
