@@ -53,3 +53,25 @@ See 'git help git' for an overview of the system.
 
 ---------------How to Download the code from github --------------------------
 1. #  git clone https://github.com/JacksonTW/UISCO_Eli.git
+--------------------------------------------------------------------
+
+References: 
+   https://www.itread01.com/content/1550367936.html
+   VSCode + Github Setting :   
+      https://medium.com/itsems-frontend/vs-code-github-%E8%A8%AD%E5%AE%9A-a7660e7e75ec
+      https://dometi.com.tw/blog/laravel-beginner-04/
+      https://medium.com/@dorrgle/vscode%E4%B8%AD%E4%BD%BF%E7%94%A8git-ebdfccfff875
+      https://www.itread01.com/article/1510279619.html
+   Git Hot Key :
+      https://blog.miniasp.com/post/2013/08/18/Learning-Git-Part-1-Installation-Options-Tool-Usage-on-Local
+   Version Control in VS Code :
+      https://code.visualstudio.com/docs/editor/versioncontrol
+      https://code.visualstudio.com/docs/introvideos/versioncontrol  (Video)
+   Git Graph :
+      https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
+   Git Documentation :
+      https://git-scm.com/doc
+   VSCode Setting for font :
+      https://blog.alantsai.net/posts/2018/02/devtooltips-1-set-visual-studio-fonts-and-size-with-better-highlight
+   JacksonTW GitHub :
+      https://github.com/JacksonTW/UISCO_Eli
