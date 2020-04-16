@@ -1,0 +1,11 @@
+
+-註解- :  Ctrl + /
+-Python 註解- : 
+  1. -單行註解- : Ctrl  + / == # 
+  2. -多行註解- : Shift + Alt + A  == ''' or """
+-整行移動-  : Alt + ↑ or Alt  + ↓
+-查詢定義-  : Alt + F12 
+-自動縮排-  : Shift + Alt + F
+-跳至某行-  : Ctrl +  G 
+-開啟終端機-  : Ctrl +  `
+-開啟Git-  : Ctrl + Shift + G
