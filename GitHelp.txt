@@ -44,7 +44,13 @@ See 'git help git' for an overview of the system.
 (1). 'Status' :
                U : untracked files
                M : Modified files
-(2). 'git add' :
+(2). 'git add [files...]' :
+               " + " :add to '暫存的變更'
+               " - " : 撤回
+(3). 'git commit -m "commit message..."' :
+               留下更新備註
+(4). 'push' : "推送"
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------
