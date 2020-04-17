@@ -40,6 +40,15 @@ See 'git help git' for an overview of the system.
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+---------------Git icon--------------------------------
+(1). 'Status' :
+               U : untracked files
+               M : Modified files
+(2). 'git add' :
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
 ---------------How to set up "Git" & "Github"--------------------------------
 1. Install Git from https://git-scm.com/downloads
 2. Choose the file which u want to update to Github (the file which is filled ur source code)
@@ -48,7 +57,7 @@ See 'git help git' for an overview of the system.
 5. #  git config --global user.name "JacksonTW"
 6. #  git config --global user.email "wangweifan115@gmail.com"
 ------------------To set log in--------------------------------
-7. #  git add . : ' To add all of the flie which u choose 
+7. #  git add . : ' To add all of the flie which u choose
 8. #  git commit -m "ur commit" : 'After updating, it will show in the GitHub. '
 9. #  git remote add origin https://github.com/JacksonTW/UISCO_Eli.git : ' already update. '
 10. #  git push -u origin master : ' Updating. '
@@ -57,9 +66,9 @@ See 'git help git' for an overview of the system.
 1. #  git clone https://github.com/JacksonTW/UISCO_Eli.git
 --------------------------------------------------------------------
 
-References: 
+References:
    https://www.itread01.com/content/1550367936.html
-   VSCode + Github Setting :   
+   VSCode + Github Setting :
       https://medium.com/itsems-frontend/vs-code-github-%E8%A8%AD%E5%AE%9A-a7660e7e75ec
       https://dometi.com.tw/blog/laravel-beginner-04/
       https://medium.com/@dorrgle/vscode%E4%B8%AD%E4%BD%BF%E7%94%A8git-ebdfccfff875
