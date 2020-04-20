@@ -121,3 +121,10 @@ References:
       https://gitbook.tw/
    GitHub_Setting
       https://code.visualstudio.com/docs/editor/versioncontrol#_remotes
+
+----------------------------------------------------------------------------------------------------------------------------
+
+未處理：
+https://cythilya.github.io/2018/06/19/git-merge-branch-into-master/
+https://gitbook.tw/chapters/github/pull-from-github.html
+https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
