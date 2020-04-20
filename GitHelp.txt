@@ -41,6 +41,7 @@ See 'git help git' for an overview of the system.
 ----------------------------------------------------------------------------------------------------------------------------
 
 ---------------Git icon--------------------------------
+
 (1). 'Status' :
                U : untracked files
                M : Modified files
@@ -51,31 +52,52 @@ See 'git help git' for an overview of the system.
                留下更新備註
 (4). 'push' : "推送"
 
-
-
 ----------------------------------------------------------------------------------------------------------------------------
 
----------------How to set up "Git" & "Github"--------------------------------
+---------------{ How to set up "Git" & "Github" }--------------------------------------------
+
 1. Install Git from https://git-scm.com/downloads
 2. Choose the file which u want to update to Github (the file which is filled ur source code)
 3. Open the Visual Studio Code and 'Ctrl + " ` " ' to open 'terminal'
-4. #  git init : ' initialize file. '
-5. #  git config --global user.name "JacksonTW"
-6. #  git config --global user.email "wangweifan115@gmail.com"
-------------------To set log in--------------------------------
-7. #  git add . : ' To add all of the flie which u choose
-8. #  git commit -m "ur commit" : 'After updating, it will show in the GitHub. '
-9. #  git remote add origin https://github.com/JacksonTW/UISCO_Eli.git : ' already update. '
-10. #  git push -u origin master : ' Updating. '
+4.  git init
+            初始化檔案。
+5.  git config --global user.name "JacksonTW"
+         設定使用者名稱。
+6.  git config --global user.email "wangweifan115@gmail.com"
+         設定使用者電子信箱。
+7.  git add .
+         新增所有檔案至暫存區。
+         ※ git add [file name]
+8.  git commit -m "ur commit"
+         編輯更新的按時的備註(Github上顯示)。
+9.  git remote add origin https://github.com/JacksonTW/UISCO_Eli.git
+         確認上傳位置。
+         ※ git remote add origin [URL]
+10. git push -u origin master
+         上傳中...
 
----------------How to Download the code from github --------------------------
-1. #  git clone https://github.com/JacksonTW/UISCO_Eli.git
----------------Step By Step----------------------------
+---------------{ Step By Step }--------------------------------------------------------------
+
 git init
 git add [Document name]
 git commit -m "ur commits"
 git remote add origin [URL]
 git push =u origin master
+
+---------------{ How to Download the code from github }--------------------------------------
+
+1.  git clone https://github.com/JacksonTW/UISCO_Eli.git
+         將檔案抓回(複製)。
+         ※ git clone [URL]
+
+---------------{ Git Index : 更改分支名稱}-----------------------------------------------------------------
+
+※ master 為預設值無法做修改(出現紅字)，Github會自動新增新的branch。
+git branch -a ：「確認分支狀況」
+git branch -m [old branch name] [new branch name]
+         「分支名稱變更」
+git push origin [new branch name] :[old branch name]
+
 ----------------------------------------------------------------------------------------------------------------------------
 
 References:
@@ -100,3 +122,5 @@ References:
       https://github.com/JacksonTW/UISCO_Eli
    Learning Git
       https://gitbook.tw/
+   GitHub_Setting
+      https://code.visualstudio.com/docs/editor/versioncontrol#_remotes
