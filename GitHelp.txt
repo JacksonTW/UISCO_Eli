@@ -70,7 +70,13 @@ See 'git help git' for an overview of the system.
 
 ---------------How to Download the code from github --------------------------
 1. #  git clone https://github.com/JacksonTW/UISCO_Eli.git
---------------------------------------------------------------------
+---------------Step By Step----------------------------
+git init
+git add [Document name]
+git commit -m "ur commits"
+git remote add origin [URL]
+git push =u origin master
+----------------------------------------------------------------------------------------------------------------------------
 
 References:
    https://www.itread01.com/content/1550367936.html
