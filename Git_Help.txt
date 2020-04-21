@@ -83,22 +83,25 @@ git push origin [new branch name] :[old branch name]
 ----------------------------------------------------------------------------------------------------------------------------
 
 【References】:
-   VSCode + Github Setting :
+   VS Code + Github Setting :
       「Git設置」： https://reurl.cc/E7ojjK
       「Plug-in教學」： https://reurl.cc/L3AW6L
       「字型設定」： https://reurl.cc/oL738D
-   Git Hot Key :
-      「Git學習筆記 _ 指令介紹」： https://reurl.cc/j7Devm
    Version Control in VS Code :
       「官方英文版教學_版本控制」： https://reurl.cc/625R7d
       「官方英文版教學_影片教學」： https://reurl.cc/5l1NvV
+   Git Hot Key :
+      「Git學習筆記 _ 指令介紹」： https://reurl.cc/j7Devm
    Git Graph :
       「官方說明」： https://reurl.cc/g7Do6b
    Git Documentation :
       「官方文件」： https://git-scm.com/doc
-      「操作教學1」： https://reurl.cc/E7ovQR
-      「操作教學2」： https://reurl.cc/0o1eax
-      「操作教學3」： https://reurl.cc/Nj0o2k (內容雜需搜尋)
+      「操作教學1」： https://reurl.cc/E7ovQR   (為你自己學 Git)
+      「操作教學2」： https://reurl.cc/ZOW3bl   (30天精通 Git 版本控管)
+      「操作教學3」： https://reurl.cc/Nj0o2k   (內容雜需搜尋)
+   Python in VS Code：
+      「官方英文版教學 _ 基礎教學」： https://reurl.cc/qdLAZn
+      「官方英文版教學 _ Debug」： https://reurl.cc/20LG8n
    JacksonTW GitHub :
       https://github.com/JacksonTW/UISCO_Eli
 
