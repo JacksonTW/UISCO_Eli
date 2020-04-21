@@ -1,28 +1,28 @@
 These are common Git commands used in various situations:
 
 start a working area (see also: git help tutorial)
-   clone             Clone a repository into a new directory
-   init              Create an empty Git repository or reinitialize an existing one
+*   clone             Clone a repository into a new directory
+*   init              Create an empty Git repository or reinitialize an existing one
 
 work on the current change (see also: git help everyday)
-   add               Add file contents to the index
-   mv                Move or rename a file, a directory, or a symlink
+*   add               Add file contents to the index
+*   mv                Move or rename a file, a directory, or a symlink
    restore           Restore working tree files
-   rm                Remove files from the working tree and from the index
+*   rm                Remove files from the working tree and from the index
    sparse-checkout   Initialize and modify the sparse-checkout
 
 examine the history and state (see also: git help revisions)
    bisect            Use binary search to find the commit that introduced a bug
    diff              Show changes between commits, commit and working tree, etc
    grep              Print lines matching a pattern
-   log               Show commit logs
+*   log               Show commit logs
    show              Show various types of objects
-   status            Show the working tree status
+*   status            Show the working tree status
 
 grow, mark and tweak your common history
    branch            List, create, or delete branches
-   commit            Record changes to the repository
-   merge             Join two or more development histories together
+*   commit            Record changes to the repository
+*   merge             Join two or more development histories together
    rebase            Reapply commits on top of another base tip
    reset             Reset current HEAD to the specified state
    switch            Switch branches
@@ -33,25 +33,7 @@ collaborate (see also: git help workflows)
    pull              Fetch from and integrate with another repository or a local branch
    push              Update remote refs along with associated objects
 
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
-
 ----------------------------------------------------------------------------------------------------------------------------
-
----------------Git icon--------------------------------
-
-(1). 'Status' :
-               U : untracked files
-               M : Modified files
-(2). 'git add [files...]' :
-               " + " :add to '暫存的變更'
-               " - " : 撤回
-(3). 'git commit -m "commit message..."' :
-               留下更新備註
-(4). 'push' : "推送"
-
 ----------------------------------------------------------------------------------------------------------------------------
 
 ---------------{ How to set up "Git" & "Github" }--------------------------------------------
@@ -82,7 +64,7 @@ git init
 git add [Document name]
 git commit -m "ur commits"
 git remote add origin [URL]
-git push =u origin master
+git push -u origin master
 
 ---------------{ How to Download the code from github }--------------------------------------
 
@@ -100,31 +82,24 @@ git push origin [new branch name] :[old branch name]
 
 ----------------------------------------------------------------------------------------------------------------------------
 
-References:
+【References】:
    VSCode + Github Setting :
-      「Git設置」：https://reurl.cc/E7ojjK
-      「Git Graph Plug-in教學」：   https://reurl.cc/L3AW6L
+      「Git設置」： https://reurl.cc/E7ojjK
+      「Plug-in教學」： https://reurl.cc/L3AW6L
+      「字型設定」： https://reurl.cc/oL738D
    Git Hot Key :
-      https://blog.miniasp.com/post/2013/08/18/Learning-Git-Part-1-Installation-Options-Tool-Usage-on-Local
+      「Git學習筆記 _ 指令介紹」： https://reurl.cc/j7Devm
    Version Control in VS Code :
-      https://code.visualstudio.com/docs/editor/versioncontrol
-      https://code.visualstudio.com/docs/introvideos/versioncontrol  (Video)
+      「官方英文版教學_版本控制」： https://reurl.cc/625R7d
+      「官方英文版教學_影片教學」： https://reurl.cc/5l1NvV
    Git Graph :
-      https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
+      「官方說明」： https://reurl.cc/g7Do6b
    Git Documentation :
-      https://git-scm.com/doc
-   VSCode Setting for font :
-      https://blog.alantsai.net/posts/2018/02/devtooltips-1-set-visual-studio-fonts-and-size-with-better-highlight
+      「官方文件」： https://git-scm.com/doc
+      「操作教學1」： https://reurl.cc/E7ovQR
+      「操作教學2」： https://reurl.cc/0o1eax
+      「操作教學3」： https://reurl.cc/Nj0o2k (內容雜需搜尋)
    JacksonTW GitHub :
       https://github.com/JacksonTW/UISCO_Eli
-   Learning Git
-      https://gitbook.tw/
-   GitHub_Setting
-      https://code.visualstudio.com/docs/editor/versioncontrol#_remotes
 
 ----------------------------------------------------------------------------------------------------------------------------
-
-未處理：
-https://cythilya.github.io/2018/06/19/git-merge-branch-into-master/
-https://gitbook.tw/chapters/github/pull-from-github.html
-https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph
