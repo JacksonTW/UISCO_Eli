@@ -36,49 +36,46 @@ collaborate (see also: git help workflows)
 ----------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------
 
----------------{ How to set up "Git" & "Github" }--------------------------------------------
+※ 指令的用法請參考 「Git_Instruction.txt」 ※
+
+---------------{ 初次使用Git & GitHub 步驟 }--------------------------------------------
 
 1. Install Git from https://git-scm.com/downloads
 2. Choose the file which u want to update to Github (the file which is filled ur source code)
 3. Open the Visual Studio Code and 'Ctrl + " ` " ' to open 'terminal'
 4.  git init
-            初始化檔案。
 5.  git config --global user.name "JacksonTW"
          設定使用者名稱。
 6.  git config --global user.email "wangweifan115@gmail.com"
          設定使用者電子信箱。
 7.  git add .
-         新增所有檔案至暫存區。
-         ※ git add [file name]
 8.  git commit -m "ur commit"
          編輯更新的按時的備註(Github上顯示)。
 9.  git remote add origin https://github.com/JacksonTW/UISCO_Eli.git
          確認上傳位置。
-         ※ git remote add origin [URL]
 10. git push -u origin master
-         上傳中...
+         上傳中...(-u origin master初次使用輸入)
 
----------------{ Step By Step }--------------------------------------------------------------
+---------------{ 使用 Git 版本控管步驟 }--------------------------------------------------------------
 
-git init
-git add [Document name]
-git commit -m "ur commits"
-git remote add origin [URL]
-git push -u origin master
+1. git init
+2. git add [Document name]
+3. git commit -m "ur commits"
+4. git remote add origin [URL]
+5. git push
 
----------------{ How to Download the code from github }--------------------------------------
+---------------{ 初次從 GitHub 的儲存庫(Repository) clone 至目標資料夾 }--------------------------------
 
-1.  git clone https://github.com/JacksonTW/UISCO_Eli.git
+git clone https://github.com/JacksonTW/UISCO_Eli.git
          將檔案抓回(複製)。
-         ※ git clone [URL]
 
----------------{ Git Index : 更改分支名稱}-----------------------------------------------------------------
+---------------{ 從 GitHub 的儲存庫(Repository) 同步至目標資料夾 }--------------------------------------
+方法一：
+git fetch
+git merge
 
-※ master 為預設值無法做修改(出現紅字)，Github會自動新增新的branch。
-git branch -a ：「確認分支狀況」
-git branch -m [old branch name] [new branch name]
-         「分支名稱變更」
-git push origin [new branch name] :[old branch name]
+方法二：
+git pull
 
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -98,11 +95,12 @@ git push origin [new branch name] :[old branch name]
       「官方文件」： https://git-scm.com/doc
       「操作教學1」： https://reurl.cc/E7ovQR   (為你自己學 Git)
       「操作教學2」： https://reurl.cc/ZOW3bl   (30天精通 Git 版本控管)
-      「操作教學3」： https://reurl.cc/Nj0o2k   (內容雜需搜尋)
+      「操作教學3」： https://reurl.cc/Nj0o2k   (-內容雜需搜尋-)
+      「操作教學4」： https://reurl.cc/pd6eje   (連猴子都能懂得Git入門指南)
    Python in VS Code：
       「官方英文版教學 _ 基礎教學」： https://reurl.cc/qdLAZn
       「官方英文版教學 _ Debug」： https://reurl.cc/20LG8n
-   JacksonTW GitHub :
-      https://github.com/JacksonTW/UISCO_Eli
-
 ----------------------------------------------------------------------------------------------------------------------------
+
+【JacksonTW GitHub】:
+      https://github.com/JacksonTW/UISCO_Eli
