@@ -14,14 +14,17 @@ git add [filename]
     「將 檔案/資料夾 加入暫存區」
 git add *.txt
     「將所有 ".txt"檔 加入暫存區」
-
+git rm [filename]
+    「刪除檔案(實體檔及索引檔)」
+git rm --cached [filename]
+    「保留實體檔案」
 git rm '*.txt'
     「刪除所有 ".txt" 檔案」
 git rm 'app/*.html'
     「刪除所有在資料夾(app)內的 ".txt" 檔案」
 
 git mv 'oldname' 'newname'
-    「變更 檔案/目錄 名稱」
+    「變更 檔案/目錄 名稱 (實體檔及索引檔)」
 ----------------------------------------------------------------
 git status
     「查看 "add[]"後的暫存區狀態(完整顯示)」
@@ -44,6 +47,9 @@ git log
     「顯示所有上傳紀錄(作者時間內容)，按 Q鍵 離開」
 git log -10
     「顯示最新的十行」
+
+git ls-files
+    「列出所有已進入索引檔的檔案路徑」
 ----------------------------------------------------------------
 git commit -m "版本紀錄的說明文字"
     「上傳的版本文字註解說明」
@@ -65,3 +71,13 @@ git reset --hard
     「還原到最新版本(所有檔案)」
 git checkout master [filename]
     「單一檔案還原到未修改前的版本」
+
+
+
+git hash-object [file name]
+git log
+git cat-file -p master
+git cat-file -p [hashID]
+
+git gc
+git fsck
