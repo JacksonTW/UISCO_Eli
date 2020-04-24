@@ -4,3 +4,5 @@ coworker  (N.) 同事
 visualize (Vt.) 使...看得見
     visualized examples 可視化的範例
 optional  (adj.)  可選擇的,隨意的
+merge   (Vi)    合併
+        (Vt)    使...合併
