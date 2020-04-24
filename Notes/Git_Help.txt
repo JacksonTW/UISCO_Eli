@@ -102,6 +102,7 @@ git pull
       「操作教學2」： https://reurl.cc/ZOW3bl   (30天精通 Git 版本控管)
       「操作教學3」： https://reurl.cc/Nj0o2k   (-內容雜需搜尋-)
       「操作教學4」： https://reurl.cc/pd6eje   (連猴子都能懂得Git入門指南)
+      「操作教學5」： https://reurl.cc/5lOzXq   (Git Magic)
    Python in VS Code：
       「官方英文版教學 _ 基礎教學」： https://reurl.cc/qdLAZn
       「官方英文版教學 _ Debug」： https://reurl.cc/20LG8n
