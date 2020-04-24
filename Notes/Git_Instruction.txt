@@ -51,6 +51,7 @@ git push
 git fetch
 git merge
 git pull
+
 git branch -a
     「確認分支狀態(紅字為預設無法更動)」
 git branch -m [old branch name] [new branch name]
