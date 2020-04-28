@@ -1,0 +1,69 @@
+[ 傳票類別：D ]
+------------------------------------------------------
+aINCOME_NO    =     Params[0]             //票據號碼
+T0                                        //主項名稱
+T1            =     Params[1]             //廠商簡稱
+T2            =     params[8]             //專案代號
+T3            =     params[3]             //金額
+
+aRM_SLIP      =     T0+T1+T2+aINCOME_NO   //備註
+------------------------------------------------------
+aLogin_id1    =     Params[4]             //作帳ID
+aLogin_id2    =     Params[4]             //會計ID
+aDEPT_NO1                                 //作帳部門代號
+aDEPT_NO2                                 //會計部門代號
+
+aID_SAM       =     aLogin_id1            //漢唐工號(業務員)
+------------------------------------------------------
+aDT_EXPIRE    = pay_date  = Params[5]     //支付日期
+------------------------------------------------------
+A:array[0..3] of string                   //判斷傳票號碼 (A[0]...A[3])
+S:= S+10                                  //序號(以十為單位)
+------------------------------------------------------
+aSEQ_NO                                   //傳票申請號碼
+aCREATE_DATE                              //申請日期
+aRI_EXCHG                                 //匯率
+aDBCR_CODE                                //傳票類別 (D:轉帳傳票)
+aID_CRNCY                                 //幣別
+------------------------------------------------------
+ID1           = '1992'                    //科目(會計)
+ID2           = '00'                      //子科目
+                '01'                        保證票據
+                '02'                        其他
+aNM_SUB                                   //子科名稱
+------------------------------------------------------
+aAM_ORG_CR                                //貸方原幣金額
+aAM_DB                                    //借方金額
+aAM_CR                                    //貸方金額
+------------------------------------------------------
+aFG_SETL                                  //是否立即沖帳  (Y = 可沖帳)
+------------------------------------------------------
+InsertSlip_D(
+              aSEQ_NO,
+              Format()
+              aDEPT_NO1
+              ID1
+              ID2
+              aDBCR_CODE
+              aID_CRNCY
+              CurrToStr(aRI_EXCHG)
+              CurrToStr(aAM_DB)
+              CurrToStr(aAM_CR)
+              T3
+              CurrToStr(aAM_ORG_CR)
+              aNM_ACC
+              aNM_SUB
+              aRM_SLIP
+              aDT_EXPIRE
+              aNM_NOTE
+              aINCOME_NO
+              T2
+              aID_SUB2
+              aNM_SUB2
+              aFG_SETL
+              NO_SLIP_P
+              CN_SEQ_P
+              aDT_AMT_RCV
+              aID_SAM
+            )
+------------------------------------------------------
