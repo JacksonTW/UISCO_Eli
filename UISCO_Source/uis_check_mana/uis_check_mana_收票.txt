@@ -6,6 +6,7 @@ T1            =     Params[1]             //廠商簡稱
 T2            =     params[8]             //專案代號
 T3            =     params[3]             //金額
 
+pcode         =     qExec.Fields[5].Value //廠商統編
 aRM_SLIP      =     T0+T1+T2+aINCOME_NO   //備註
 ------------------------------------------------------
 aLogin_id1    =     Params[4]             //作帳ID
@@ -19,11 +20,12 @@ aDT_EXPIRE    = pay_date  = Params[5]     //支付日期
 ------------------------------------------------------
 A:array[0..3] of string                   //判斷傳票號碼 (A[0]...A[3])
 S:= S+10                                  //明細序號(以十為單位)
+*str1
 ------------------------------------------------------
 aSEQ_NO                                   //傳票申請號碼
 aCREATE_DATE                              //申請日期
 aRI_EXCHG                                 //匯率
-aDBCR_CODE                                //傳票類別 (D:轉帳傳票)
+aDBCR_CODE    = 'D'                       //
 aID_CRNCY                                 //幣別
 ------------------------------------------------------
 ID1           = '1992'                    //科目(會計)
@@ -55,7 +57,7 @@ InsertSlip_D(
               aNM_SUB
               aRM_SLIP
               aDT_EXPIRE
-              aNM_NOTE
+              aNN_NOTE
               aINCOME_NO
               T2
               aID_SUB2
@@ -70,7 +72,69 @@ InsertSlip_D(
 
 [應付帳款]
 ------------------------------------------------------
-
 str                                      //應付金額
-ID1
-ID2
+ID1           ='1992'
+ID2           = pcode
+
+aAM_DB        = 0                        //借方金額*匯率金額
+aDEPT_NO1     = ''                       //作帳部門代號
+aDBCR_CODE    = 'C'                      //
+aAM_CR                                   //貸方金額
+aAM_ORG_CR                               //貸方原幣金額
+
+T3            = '0'                      //金額
+aID_SAM       = aLogin_id2               //漢唐工號 更換為 會計ID
+------------------------------------------------------
+InsertSlip_D(
+              aSEQ_NO,
+              Format()
+              aDEPT_NO2
+              ID1
+              ID2
+              aDBCR_CODE
+              aID_CRNCY
+              CurrToStr(aRI_EXCHG)
+              CurrToStr(aAM_DB)
+              CurrToStr(aAM_CR)
+              T3
+              CurrToStr(aAM_ORG_CR)
+              aNM_ACC
+              aNM_SUB
+              aRM_SLIP
+              aDT_EXPIRE
+              aNN_NOTE
+              aINCOME_NO
+              T2
+              aID_SUB2
+              aNM_SUB2
+              aFG_SETL
+              NO_SLIP_P
+              CN_SEQ_P
+              aDT_AMT_RCV
+              aID_SAM
+            )
+------------------------------------------------------
+InsertSlip_H(
+              aSEQ_NO
+              aCREATE_DATE
+              CurrToStr(aAM_CR)
+              aCREATE_DATE aAMT
+              aLogin_id2
+              aID_DEPT
+              aINCOME_NO
+            )
+------------------------------------------------------
+[給待辦]
+------------------------------------------------------
+vInput := VarArrayof(['FAC002','01','NO_APPLY='+aSEQ_NO]);
+ServiceManager.CallExternalMethod('SWorkFlow','SendTodoList',vInput);
+InsertFlowRM('FAC002','01','NO_APPLY='+aSEQ_NO,'保證票據用(過渡存入保證票據傳票) ',aSEQ_NO);
+//拋轉傳票時間寫入進貨明細表中。。並改變進貨狀態職為轉應付
+
+       str1:=(DateTimeToDateString(now()));//拋轉為字串型態的日期格式
+
+      //ShowMessage(AAA);   此為 AP 端, 不能用 showMessage  leo 20200302
+      //ShowMessage(datetostr(now())+'拋轉票據編號='+aINCOME_NO+'共計1筆');
+
+       tax:='0';
+       summary:='0';

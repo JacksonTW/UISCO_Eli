@@ -1,0 +1,89 @@
+aINCOME_NO          =   Params[0]                 //票據號碼
+aLogin_id1          =   Params[4]                 //作帳人員ID
+aLogin_id2          =   Params[4]                 //會計人員ID
+pay_date            =   Params[5]
+                    =   aDT_EXPIRE                //支付日期
+
+T0                                                //主項名稱
+T1                  =   Params[1]                 //廠商簡稱
+T2                  =   Params[8]                 //專案代號
+T3                  =   Params[3]                 //金額
+pcode               =   qExec.Fields[5].VALUE     //廠商統編
+
+aDEPT_NO1                                         //作帳部門代號
+aDEPT_NO2                                         //會計部門代號
+
+A:array[0..3] of string                           //判斷傳票號碼 (A[0]...A[3])
+S                   =   10                        //新增明細序號
+
+aSEQ_NO                                           //傳票申請號碼
+aCREATE_DATE                                      //申請日期
+aRI_EXCHG                                         //匯率
+aDBCR_CODE          =   'D'                       //
+aID_CRNCY           =   'NTD'                     //幣別
+
+ID1                 =   '2931'                    //會計科目
+*ID2                 =   '00'                      //會計科目子科
+
+aAM_ORG_CR                                        //貸方原幣金額
+aAM_DB                                            //借方金額*匯率金額
+aAM_CR                                            //貸方金額
+aNM_ACC                                           //科目名稱
+aNM_SUB                                           //子科名稱
+aRM_SLIP            =T0+' '+T1+' '+T2+' '+aINCOME_NO //備註
+aFG_SETL            = 'N'
+aNN_NOTE
+aID_SUB2
+aNM_SUB2
+aAM_ORG_DB
+aID_SAM:=aLogin_id1;
+------------------------------------------------------
+InsertSlip_D(
+              aSEQ_NO
+              Format('%.4d',[S])
+              aDEPT_NO1
+              ID1
+              ID2
+              aDBCR_CODE
+              aID_CRNCY
+              CurrToStr(aRI_EXCHG)
+              CurrToStr(aAM_DB)
+              CurrToStr(aAM_CR)
+              T3
+              CurrToStr(aAM_ORG_CR)
+              aNM_ACC
+              aNM_SUB
+              aRM_SLIP
+              aDT_EXPIRE
+              aNN_NOTE
+              aINCOME_NO
+              T2
+              aID_SUB2
+              aNM_SUB2
+              aFG_SETL
+              NO_SLIP_P
+              CN_SEQ_P
+              aDT_AMT_RCV
+              aID_SAM
+            )
+------------------------------------------------------
+InsertSlip_H(
+              aSEQ_NO
+              aCREATE_DATE
+              CurrToStr(aAM_CR)
+              aCREATE_DATE
+              aLogin_id2
+              aID_DEPT
+              aINCOME_NO
+            )
+
+------------------------------------------------------
+[給待辦]
+------------------------------------------------------
+vInput := VarArrayof(['FAC002','01','NO_APPLY='+aSEQ_NO]);
+ServiceManager.CallExternalMethod('SWorkFlow','SendTodoList',vInput);
+InsertFlowRM('FAC002','01','NO_APPLY='+aSEQ_NO,'保證票據用(過渡存入保證票據傳票) ',aSEQ_NO);
+
+------------------------------------------------------
+
+------------------------------------------------------

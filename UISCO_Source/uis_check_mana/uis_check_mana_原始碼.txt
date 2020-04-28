@@ -202,7 +202,7 @@ begin
 //應付帳款
      str:=inttostr(strtoint(summary));  //應付金額
 
-       ID1:='2931';
+       ID1:='1992';   //20200428更改為1992
        ID2:=pcode;
        aAM_DB := 0;    //借方金額*匯率金額
        aDEPT_NO1:='';
@@ -266,11 +266,11 @@ begin
   aLogin_id1:=Params[4];//作帳人員ID
   aLogin_id2:=Params[4];//會計人員ID
   pay_date:=Params[5]; //支付日期
-    
+
   //RAISE EXCEPTION.Create(aLogin_id2);
 
    aDT_EXPIRE:=pay_date;
-  
+
   aDEPT_NO1:=copy(aLogin_id1,1,2)+'00';  //作帳人員 部門代號
   aDEPT_NO2:=copy(aLogin_id2,1,2)+'00';  //會計人員 部門代號
 
@@ -358,7 +358,7 @@ T3:=Params[3];   //金額
 //應付帳款
      str:=inttostr(strtoint(summary));  //應付金額
 
-       ID1:='1992';
+       ID1:='2931';
        ID2:=pcode;
        aAM_DB := 0;    //借方金額*匯率金額
        aDEPT_NO1:='';
@@ -368,7 +368,7 @@ T3:=Params[3];   //金額
        S:=S+10;                   //新增明細序號
        T3:='0';
        aID_SAM:=aLogin_id2;
-       
+
        InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO2,ID1,ID2
                    ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
                    ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aINCOME_NO,T2,aID_SUB2,aNM_SUB2
