@@ -1,0 +1,179 @@
+unit UIS_CHECK_MANA_FMUIS_CHECK_MANA;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs,
+  fmWorkFlowBase1u, StdCtrls, RefVals, InfoCtrls, DBCtrls, DB, Mask,
+  ExtCtrls, Grids, AdvDBGrids, RepCommonLayout, RepLayoutComp, Menus,
+  AuditFlowClient, SimpRep, DBClient, InfoClient, Buttons, InfoBut,
+  ButtonLP2, ComCtrls;
+
+type
+  TFMUIS_CHECK_MANA = class(TfmWorkFlowBase1)
+    grdView: TInfoDBGrid;
+    Splitter1: TSplitter;
+    Panel1: TPanel;
+    blockMain: TScrollBox;
+    edtCHECK_NO1: TInfoDBEdit;
+    lblCHECK_NO1: TInfoLabel;
+    lblCHECK_TYPE1: TInfoLabel;
+    edtCHECK_DATE1: TInfoDBEdit;
+    lblCHECK_DATE1: TInfoLabel;
+    edtCHECK_MONEY1: TInfoDBEdit;
+    lblCHECK_MONEY1: TInfoLabel;
+    edtORDER_NO1: TInfoDBEdit;
+    lblORDER_NO1: TInfoLabel;
+    lblDESC_DATA1: TInfoLabel;
+    edtREFUND_DATE1: TInfoDBEdit;
+    lblREFUND_DATE1: TInfoLabel;
+    edtSTATUS1: TInfoDBEdit;
+    lblSTATUS1: TInfoLabel;
+    edtBILLTYPE1: TInfoDBEdit;
+    lblBILLTYPE1: TInfoLabel;
+    edtFLOWFLAG1: TInfoDBEdit;
+    lblFLOWFLAG1: TInfoLabel;
+    edtFLOWIMPORTANT1: TInfoDBEdit;
+    lblFLOWIMPORTANT1: TInfoLabel;
+    edtFLOWURGENT1: TInfoDBEdit;
+    lblFLOWURGENT1: TInfoLabel;
+    edtLASTUPDATEDATETIME1: TInfoDBEdit;
+    lblLASTUPDATEDATETIME1: TInfoLabel;
+    edtRECORD_OWNER1: TInfoDBEdit;
+    lblRECORD_OWNER1: TInfoLabel;
+    edtRECORD_OWNER_R1: TInfoDBEdit;
+    lblRECORD_OWNER_R1: TInfoLabel;
+    edtSYSFLAG1: TInfoDBEdit;
+    lblSYSFLAG1: TInfoLabel;
+    edtUPDATE_DATE1: TInfoDBEdit;
+    lblUPDATE_DATE1: TInfoLabel;
+    edtUPDATE_TIME1: TInfoDBEdit;
+    lblUPDATE_TIME1: TInfoLabel;
+    edtUPDATE_USER1: TInfoDBEdit;
+    lblUPDATE_USER1: TInfoLabel;
+    InfoDBMemo1: TInfoDBMemo;
+    InfoDBComboBox1: TInfoDBComboBox;
+    RefValComponent1: TRefValComponent;
+    Label1: TLabel;
+    InfoLabel1: TInfoLabel;
+    InfoDBEdit1: TInfoDBEdit;
+    InfoLabel2: TInfoLabel;
+    InfoDBEdit2: TInfoDBEdit;
+    InfoLabel3: TInfoLabel;
+    edtEndDate: TInfoDBEdit;
+    InfoLabel4: TInfoLabel;
+    InfoDBEdit3: TInfoDBEdit;
+    InfoLabel5: TInfoLabel;
+    InfoDBComboBox2: TInfoDBComboBox;
+    procedure FormCreate(Sender: TObject);
+    procedure btnModifyClick(Sender: TObject);
+    procedure btnQueryClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+
+  private
+    { Private declarations }
+     AA:string;
+  public
+    { Public declarations }
+  end;
+
+var
+  FMUIS_CHECK_MANA: TFMUIS_CHECK_MANA;
+
+implementation
+
+{$R *.DFM}
+
+uses
+  CommonUtils,AFM2BASEFMUtils,UserUtils;
+
+procedure TFMUIS_CHECK_MANA.FormCreate(Sender: TObject);
+begin
+  inherited;
+
+  AA:=Trim(GetFieldParams('AA',UpperCase(Params)));
+
+end;
+
+procedure TFMUIS_CHECK_MANA.btnModifyClick(Sender: TObject);
+begin
+
+  if AA='2'  THEN
+     BEGIN
+     edtREFUND_DATE1.Visible:=TRUE;
+     edtREFUND_DATE1.Color:=clWindow;
+     inherited;
+     END;
+
+  if AA='3'  THEN
+     BEGIN
+     edtREFUND_DATE1.Visible:=TRUE;
+     edtREFUND_DATE1.Color:=clWindow;
+     inherited;
+     END;
+end;
+
+procedure TFMUIS_CHECK_MANA.btnQueryClick(Sender: TObject);
+begin
+  //inherited;
+  if AA='3'  THEN
+     BEGIN
+     edtREFUND_DATE1.Visible:=TRUE;
+     edtREFUND_DATE1.Color:=clWindow;
+     inherited;
+     END;
+
+  if AA='2'  THEN
+     BEGIN
+     edtREFUND_DATE1.Visible:=TRUE;
+     edtREFUND_DATE1.Color:=clWindow;
+     inherited;
+     END;
+
+end;
+
+procedure TFMUIS_CHECK_MANA.btnSaveClick(Sender: TObject);
+begin
+
+
+  if AA='1'  THEN      //保固票建立
+     BEGIN
+     //開立存入保證票據
+
+     //**************
+     //2020-05-25_Eli_新增[BANK_NAME,end_date],order_no為訂單號
+     //**************
+
+     CallServerMethod('UIS_check_mana','change_to_acc1'
+                      ,VarArrayof([cdsMain.FieldValues['check_no']  ,cdsMain.FieldValues['fact_name']
+                      ,cdsMain.FieldValues['CHECK_TYPE']  ,floattostr(cdsMain.FieldValues['check_money'])
+                      ,getLoginUSER,edtCHECK_DATE1.Field.Value  ,cdsMain.FieldValues['DESC_DATA']
+                      ,cdsMain.FieldValues['order_no']  ,cdsMain.FieldValues['PRO_no']
+                      ,cdsMain.FieldValues['BANK_NAME'] ,cdsMain.FieldValues['end_date']]));
+
+     //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
+     end;
+
+  if AA='2'  THEN     //保固票退回
+     BEGIN
+     //開立應收保證票據
+     CallServerMethod('UIS_check_mana','change_to_acc2',VarArrayof([cdsMain.FieldValues['check_no'],cdsMain.FieldValues['fact_name'],cdsMain.FieldValues['CHECK_TYPE'],floattostr(cdsMain.FieldValues['check_money']),getLoginUSER,edtCHECK_DATE1.Field.Value,cdsMain.FieldValues['DESC_DATA'],cdsMain.FieldValues['order_no'],cdsMain.FieldValues['PRO_no']]));
+     //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
+     end;
+
+  //if AA='3'  THEN     //保固票查詢
+  //   BEGIN
+  //   inherited; //一般查詢
+  //   end;
+
+  inherited;
+
+
+end;
+
+
+
+initialization
+  RegisterPackageClass(TFMUIS_CHECK_MANA);
+end.
