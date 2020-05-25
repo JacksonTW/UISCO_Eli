@@ -20,12 +20,12 @@ type
       out ReturnVal: Variant);
   private
     { Private declarations }
-  procedure InsertFlowRM    (D_FLOW_ID,D_STEP_ID,aKEY,FLOW_ID,aRM : String);
-  procedure InsertSlip_H    (aSEQ_NO,aDT_SLIP,aAMT,aCREATE_DATE,aUserID,aDEPT_NO,aBILLNO : String);
-  procedure InsertSlip_D    (aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,aID_SUB
-                             ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
-                             ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-                             const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
+  procedure InsertFlowRM(D_FLOW_ID,D_STEP_ID,aKEY,FLOW_ID,aRM : String);
+  procedure InsertSlip_H(aSEQ_NO,aDT_SLIP,aAMT,aCREATE_DATE,aUserID,aDEPT_NO,aBILLNO : String);
+  procedure InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,aID_SUB
+       ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
+       ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+       const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
 
   public
     { Public declarations }
@@ -40,85 +40,74 @@ implementation
 
 uses
   CommonUtils,DATETIMEUTILS,UpdateAssistant;
-  //-----------------------------------------------------------------------
-procedure TUIS_CHECK_MANA_SEL.InsertFlowRM  (
-                                              D_FLOW_ID, D_STEP_ID
-                                            , aKEY, FLOW_ID,  aRM: String
-                                            );
+
+    procedure TUIS_CHECK_MANA_SEL.InsertFlowRM(D_FLOW_ID, D_STEP_ID, aKEY, FLOW_ID,
+  aRM: String);
 var
   s : String;
 begin
   s := FLOW_ID+' '+aRM;
-
   Q1.SQL.Text := 'UPDATE WF_TODOLIST SET REMARK = '''+s+''' '+
                     'WHERE FLOW_ID = '''+D_FLOW_ID+''' '+
                     'AND D_STEP_ID = '''+D_STEP_ID+''' '+
                     'AND FORM_PRESENTATION = '''+aKEY+''' ';
    Q1.ExecSQL;
 end;
-------------------------------------------------------------------------------------------------------------
-procedure TUIS_CHECK_MANA_SEL.InsertSlip_D  (
-                                              aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,
-                                              aID_SUB, aDBCR_CODE, aID_CRNCY, aRI_EXCHG,
-                                              aAM_DB, aAM_CR, aAM_ORG_DB,aAM_ORG_CR,
-                                              aNM_ACC, aNM_SUB, aRM_SLIP, aDT_EXPIRE,
-                                              aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,
-                                              aFG_SETL : String;
-                                              const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String
-                                            );
+
+procedure TUIS_CHECK_MANA_SEL.InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,
+  aID_SUB, aDBCR_CODE, aID_CRNCY, aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,
+  aAM_ORG_CR, aNM_ACC, aNM_SUB, aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+  const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String);
 var
   aSQL : String;
 begin
-  aSQL := 'INSERT INTO FAC3SLIP_D(NO_APPLY,CN_SEQ,ID_DEPT,ID_ACC,'
-        +'ID_SUB,FG_DBCR,ID_CRNCY,RI_EXCHG,AM_DB,'
-        +'AM_CR,AM_ORG_DB,AM_ORG_CR,NM_ACC,NM_SUB,'
-        +'RM_SLIP,NN_NOTE,BILLNO,NO_PROJ,ID_SUB2,NM_SUB2,DT_EXPIRE,'
-        +'FG_SETL,NO_SLIP_P,CN_SEQ_P,ID_SAM ) '
-        +'VALUES  ( '''+aSEQ_NO+''','''+aSeqCnt+''','''+aDEPT_NO+''','''+aID_ACC+''','''+aID_SUB+''','''+aDBCR_CODE+''','''+aID_CRNCY+''','+aRI_EXCHG+','+aAM_DB+','+aAM_CR+','+aAM_ORG_DB+','+aAM_ORG_CR+','''+aNM_ACC+''','''+aNM_SUB+''','''+aRM_SLIP+''','''+aNN_NOTE+''','''+aBILLNO+''','''+aNO_PROJ+''','''+aID_SUB2+''','''+aNM_SUB2+''','''+aDT_EXPIRE+''','''+aFG_SETL+''','''+aNO_SLIP_P+''','''+aCN_SEQ_P+''','''+aID_SAM+''')  ';
-
+  aSQL := 'INSERT INTO FAC3SLIP_D(NO_APPLY,CN_SEQ,ID_DEPT,ID_ACC,'+
+          'ID_SUB,FG_DBCR,ID_CRNCY,RI_EXCHG,AM_DB,'+
+          'AM_CR,AM_ORG_DB,AM_ORG_CR,NM_ACC,NM_SUB,'+
+          'RM_SLIP,NN_NOTE,BILLNO,NO_PROJ,ID_SUB2,NM_SUB2,DT_EXPIRE,'+
+          'FG_SETL,NO_SLIP_P,CN_SEQ_P,ID_SAM ) '+
+          'VALUES('''+aSEQ_NO+''','''+aSeqCnt+''','''+aDEPT_NO+''','''+aID_ACC+
+          ''','''+aID_SUB+''','''+aDBCR_CODE+''','''+aID_CRNCY+''','+aRI_EXCHG+','+aAM_DB+
+          ','+aAM_CR+','+aAM_ORG_DB+','+aAM_ORG_CR+','''+aNM_ACC+''','''+aNM_SUB+
+          ''','''+aRM_SLIP+''','''+aNN_NOTE+''','''+aBILLNO+''','''+aNO_PROJ+''','''+aID_SUB2+''','''+aNM_SUB2+''','''+aDT_EXPIRE+''','''+aFG_SETL+''','''+aNO_SLIP_P+''','''+aCN_SEQ_P+''','''+aID_SAM+''')';
   Q1.SQL.Text := aSQL;
   Q1.ExecSQL;          // leo 20200302 調整 database alias 由HRS_ACC 到  BDEDatabase,否則 測試區 無法抓到傳票主檔資料,待辦會錯誤
 end;
-
-//----------H------------------------------------------------------------------
-procedure TUIS_CHECK_MANA_SEL.InsertSlip_H  (
-                                              aSEQ_NO, aDT_SLIP, aAMT, aCREATE_DATE,
-                                              aUserID, aDEPT_NO,aBILLNO: String
-                                            );
+//----------------------
+procedure TUIS_CHECK_MANA_SEL.InsertSlip_H(aSEQ_NO, aDT_SLIP, aAMT, aCREATE_DATE,
+  aUserID, aDEPT_NO,aBILLNO: String);
 var
   aSQL : String;
 begin
-  aSQL := 'INSERT INTO FAC3SLIP (
-                                  NO_APPLY,ID_APPLY,ID_DEPT_APPLY,DT_APPLY,DT_SLIP,'
-                                +'ID_CLASS ,ID_KIND ,AM_DB,AM_CR ,RM ,BILLTYPE ,UPDATE_USER ,UPDATE_DATE,BILLNO) '
-                                +'VALUES  (
-                                            '''+aSEQ_NO+''','''+aUserID+''','''+aDEPT_NO+''','''+aCREATE_DATE+''','''+aDT_SLIP+''',''F'',''SLIP'','+aAMT+','+aAMT+','''',''FG01'','''+aUserID+''','''+aCREATE_DATE+''','''+aBILLNO+'''
-                                          )';
+  aSQL := 'INSERT INTO FAC3SLIP(NO_APPLY,ID_APPLY,ID_DEPT_APPLY,DT_APPLY,DT_SLIP,'+
+          'ID_CLASS ,ID_KIND ,AM_DB,AM_CR ,RM ,BILLTYPE ,UPDATE_USER ,UPDATE_DATE,BILLNO) '+
+          'VALUES('''+aSEQ_NO+''','''+aUserID+''','''+aDEPT_NO+''','''+aCREATE_DATE+''','''+aDT_SLIP+
+          ''',''D'',''SLIP'','+aAMT+','+aAMT+','''',''FG01'','''+aUserID+''','''+aCREATE_DATE+''','''+aBILLNO+''')';
+
+          //**************
+          //2020-05-25_Eli_將[F]更改為[D 轉帳傳票]
+          //**************
+
+
   Q1.SQL.Text := aSQL;
   Q1.ExecSQL;               // leo 20200302 調整 database alias 由HRS_ACC 到  BDEDatabase,否則 測試區 無法抓到傳票主檔資料,待辦會錯誤
 end;
 
 
-//------------------------------收票-----------------------------------------
 
-procedure TUIS_CHECK_MANA_SEL.change_to_acc1CallMethod  (
-                                                          Params: Variant;
-                                                          out ReturnVal: Variant
-                                                        );
+//-----------------------------建立------------------------------------------
+
+procedure TUIS_CHECK_MANA_SEL.change_to_acc1CallMethod(Params: Variant;
+  out ReturnVal: Variant);
 var
 
   aINCOME_NO,STATUS,str,str1,SUMMARY,TAX,T0,T1,T2,T3,ID1,ID2,aLogin_id1,aLogin_id2,aSEQ_NO,aCREATE_DATE:STRING;
   aDEPT_NO1,aDEPT_NO2,aDBCR_CODE,aDT_EXPIRE,aFG_SETL,aNN_NOTE,aID_SUB2,aNM_SUB2,NO_SLIP_P,CN_SEQ_P,aID_CRNCY:string;
   aNM_ACC,aNM_SUB,aRM_SLIP,pcode,aDT_AMT_RCV,aID_DEPT,aID_SAM,IN_STR,pay_date,N1,n2,n3,n4:string;
-
   i,j,K,K1,K2,S,m,o1,o2,o3,o4:integer;
-
   aRI_EXCHG,aAM_ORG_CR,aAM_CR,aAM_DB,aAM_ORG_DB:currency;
-
   vInput:Variant;
-
   F:TextFile;
-
   A:array[0..3] of string;
 begin
   aINCOME_NO:=Params[0]; //票據號碼
@@ -150,11 +139,7 @@ begin
         aID_CRNCY:='NTD';
         S:=10;                 //新增明細序號
    //--------------------------------------------------------------
-
-
-
-
-    //AssignFile(F,'C:\EEP_7\download\'+aINCOME_NO+'.txt');
+     //AssignFile(F,'C:\EEP_7\download\'+aINCOME_NO+'.txt');
     //Rewrite(F);
     summary:='0';
 
@@ -167,6 +152,14 @@ begin
   T1:=Params[1];   //廠商簡稱
   T2:=Params[8];   //專案代號
   T3:=Params[3];   //金額
+
+  //**************
+  //2020-05-25_Eli
+  T4:=Params[9];   //銀行名稱
+  T5:=Params[10];  //訂單號
+  T6:=Params[11];  //到期日
+ //**************
+
   //pcode:=qExec.Fields[5].VALUE;    //廠商統編
 
   //summary:=inttostr(strtoint(t3)+strtoint(summary));//計算
@@ -192,7 +185,13 @@ begin
            aAM_CR := 0;     //貸方金額
             //aNM_ACC:='';//科目名稱
             aNM_SUB:='';//子科名稱
-           aRM_SLIP:=T0+' '+T1+' '+T2+' '+aINCOME_NO; //備註
+
+ //**************
+ //2020-05-25_Eli
+ //備註刪除[T2],新增[T4,T5,T6]
+           aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO+' '+T5+' '+T6; //備註
+ //**************
+
            aFG_SETL:='N';
             //aDT_EXPIRE:='';
             //aNN_NOTE:='';
@@ -218,7 +217,7 @@ begin
 //應付帳款
      str:=inttostr(strtoint(summary));  //應付金額
 
-       ID1:='1992';   //20200428更改為1992
+       ID1:='2931';
        ID2:=pcode;
        aAM_DB := 0;    //借方金額*匯率金額
        aDEPT_NO1:='';
@@ -264,7 +263,7 @@ end;
 
 
 
-//-------------------------退票-----------------------------------------------
+//-------------------------退回-----------------------------------------------
 procedure TUIS_CHECK_MANA_SEL.change_to_acc2CallMethod(Params: Variant;
   out ReturnVal: Variant);
 var
@@ -332,10 +331,6 @@ T3:=Params[3];   //金額
   //判斷是否為 "分期作帳金額" 因為 分期作帳金額 只針對 付款金額
 
 
-
-  //-----------------------------------------------------------
-
-
     ID1:='2931';   //會計科目
     ID2:='00';   //會計科目子科
      //K1:=6-Length(ID1);         //計算會計科目需要的空白數量
@@ -374,7 +369,7 @@ T3:=Params[3];   //金額
 //應付帳款
      str:=inttostr(strtoint(summary));  //應付金額
 
-       ID1:='2931';
+       ID1:='1992';
        ID2:=pcode;
        aAM_DB := 0;    //借方金額*匯率金額
        aDEPT_NO1:='';
