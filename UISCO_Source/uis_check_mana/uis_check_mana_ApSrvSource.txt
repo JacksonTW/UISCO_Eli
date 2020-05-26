@@ -23,26 +23,22 @@ type
   procedure InsertFlowRM(D_FLOW_ID,D_STEP_ID,aKEY,FLOW_ID,aRM : String);
   procedure InsertSlip_H(aSEQ_NO,aDT_SLIP,aAMT,aCREATE_DATE,aUserID,aDEPT_NO,aBILLNO : String);
   procedure InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,aID_SUB
-       ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
-       ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-       const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
+                          ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
+                          ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+                          const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
 
   public
     { Public declarations }
   end;
-
 var
   UIS_CHECK_MANA_SEL: TUIS_CHECK_MANA_SEL;
-
 implementation
-
 {$R *.DFM}
-
 uses
   CommonUtils,DATETIMEUTILS,UpdateAssistant;
 
-    procedure TUIS_CHECK_MANA_SEL.InsertFlowRM(D_FLOW_ID, D_STEP_ID, aKEY, FLOW_ID,
-  aRM: String);
+//---FUNCTION:InsertFlowRM---
+    procedure TUIS_CHECK_MANA_SEL.InsertFlowRM(D_FLOW_ID, D_STEP_ID, aKEY, FLOW_ID,aRM: String);
 var
   s : String;
 begin
@@ -55,10 +51,12 @@ begin
 end;
 
 //---FUNCTION: InserSlip_D---
-procedure TUIS_CHECK_MANA_SEL.InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,
-  aID_SUB, aDBCR_CODE, aID_CRNCY, aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,
-  aAM_ORG_CR, aNM_ACC, aNM_SUB, aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-  const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String);
+procedure TUIS_CHECK_MANA_SEL.InsertSlip_D(
+                                            aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,  aID_SUB, aDBCR_CODE, aID_CRNCY
+                                          , aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,  aAM_ORG_CR, aNM_ACC, aNM_SUB
+                                          , aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+                                          const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String
+                                          );
 var
   aSQL : String;
 begin
@@ -138,7 +136,7 @@ begin
         //**************
         //2020-05-26_Eli
         //aCREATE_DATE := FormatDateTime('yyyymmdd',Now);
-        aCREATE_DATE := Params[6];
+        aCREATE_DATE := Params[5];
         //**************
 
         aSEQ_NO := FlowGetAutoNoEx(ServiceManager,'FAC01','DT_APPLY='+aCREATE_DATE+';ID_CLASS=D');
