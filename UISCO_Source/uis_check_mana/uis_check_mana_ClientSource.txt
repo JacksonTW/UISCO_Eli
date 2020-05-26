@@ -145,12 +145,26 @@ begin
      //2020-05-25_Eli_新增[BANK_NAME,end_date],order_no為訂單號
      //**************
 
-     CallServerMethod('UIS_check_mana','change_to_acc1'
-                      ,VarArrayof([cdsMain.FieldValues['check_no']  ,cdsMain.FieldValues['fact_name']
-                      ,cdsMain.FieldValues['CHECK_TYPE']  ,floattostr(cdsMain.FieldValues['check_money'])
-                      ,getLoginUSER,edtCHECK_DATE1.Field.Value  ,cdsMain.FieldValues['DESC_DATA']
-                      ,cdsMain.FieldValues['order_no']  ,cdsMain.FieldValues['PRO_no']
-                      ,cdsMain.FieldValues['BANK_NAME'] ,cdsMain.FieldValues['end_date']]));
+     CallServerMethod('UIS_check_mana'
+                      ,'change_to_acc1'
+                      ,VarArrayof
+                      (
+                        [
+                          cdsMain.FieldValues['check_no']
+                         ,cdsMain.FieldValues['fact_name']
+                         ,cdsMain.FieldValues['CHECK_TYPE']
+                         ,floattostr(cdsMain.FieldValues['check_money'])
+                         ,getLoginUSER
+                         ,edtCHECK_DATE1.Field.Value
+                         ,cdsMain.FieldValues['DESC_DATA']
+                         ,cdsMain.FieldValues['order_no']
+                         ,cdsMain.FieldValues['PRO_no']
+                         ,cdsMain.FieldValues['BANK_NAME']
+                         ,cdsMain.FieldValues['end_date']
+                         //,cdsMain.FieldValues['CHECK_DATE']
+                        ]
+                       )
+                       );
 
      //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
      end;
