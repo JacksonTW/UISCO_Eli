@@ -1,0 +1,314 @@
+unit cUIS_Search;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs,
+  AFM2BaseFM1, StdCtrls, Grids, AdvDBGrids, InfoCtrls, ExtCtrls,
+  AuditFlowClient, SimpRep, Menus, DB, DBClient, InfoClient, ComCtrls,
+  Buttons, InfoBut, ButtonLP2, RepCommonLayout, RepLayoutComp, RefVals;
+
+type
+  TINC001 = class(TAFM2BaseForm1)
+    Splitter1: TSplitter;
+    Panel1: TPanel;
+    blockMain: TScrollBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    RadioGroup1: TRadioGroup;
+    InfoDBGrid1: TInfoDBGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    ListRepLayout1: TListRepLayout;
+    Label8: TLabel;
+    Edit7: TEdit;
+    Label9: TLabel;
+    Label11: TLabel;
+    Ref_m2: TRefValComponent;
+    Label10: TLabel;
+    Label12: TLabel;
+    Memo1: TMemo;
+    procedure btnQueryClick(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+    procedure btnPrintClick(Sender: TObject);
+    procedure Edit_enable;
+    procedure Edit_disable;
+    procedure FormCreate(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure Edit3KeyPress(Sender: TObject; var Key: Char);
+    procedure Edit5KeyPress(Sender: TObject; var Key: Char);
+    procedure btnCancelClick(Sender: TObject);
+    procedure InfoDBGrid1CellClick(Column: TColumn);
+    procedure InfoDBGrid1TitleClick(Column: TColumn);
+
+
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  INC001: TINC001;
+
+implementation
+
+{$R *.DFM}
+
+uses
+  CommonUtils;
+
+procedure TINC001.Edit_enable;
+begin
+  Edit1.Enabled := True ;
+  Edit2.Enabled := True ;
+  Edit3.Enabled := True ;
+  Edit4.Enabled := True ;
+  Edit5.Enabled := True ;
+  Edit6.Enabled := True ;
+  Edit7.Enabled := True ;
+  Memo1.Enabled := True ;
+
+  Edit1.Color := clWindow;
+  Edit2.Color := clWindow;
+  Edit3.Color := clWindow;
+  Edit4.Color := clWindow;
+  Edit5.Color := clWindow;
+  Edit6.Color := clWindow;
+  Edit7.Color := clWindow;
+  Memo1.Color := clWindow;
+
+  Edit1.Text := '';
+  Edit2.Text := '';
+  Edit3.Text := '';
+  Edit4.Text := '';
+  Edit5.Text := '';
+  Edit6.Text := '';
+  Edit7.Text := '';
+  Memo1.Text := '';
+
+  RadioGroup1.Enabled := True;
+  RadioGroup1.ItemIndex := 3 ;
+end;
+
+procedure TINC001.Edit_disable;
+begin
+  Edit1.Enabled := false ;
+  Edit2.Enabled := false ;
+  Edit3.Enabled := false ;
+  Edit4.Enabled := false ;
+  Edit5.Enabled := false ;
+  Edit6.Enabled := false ;
+  Edit7.Enabled := false ;
+  Memo1.Enabled := false;
+
+
+  Edit1.Color := clSilver;
+  Edit2.Color := clSilver;
+  Edit3.Color := clSilver;
+  Edit4.Color := clSilver;
+  Edit5.Color := clSilver;
+  Edit6.Color := clSilver;
+  Edit7.Color := clSilver;
+  Memo1.Color := clSilver;
+
+  btnInsert.Enabled := false;
+  btnModify.Enabled := false;
+  btnDelete.Enabled := false;
+
+  RadioGroup1.Enabled := false;
+end;
+
+//--------------------------------------------------------------------
+
+procedure TINC001.btnQueryClick(Sender: TObject);
+begin
+  inherited;
+
+   Edit_enable;
+
+end;
+
+procedure TINC001.btnSaveClick(Sender: TObject);
+var
+  SqlStr, whereStr, memo1Str : string;
+  i : integer;
+
+begin
+  inherited;
+  memo1Str :='';
+
+//--------------------------------------------------------------------
+
+   if Edit1.Text<>'' then
+      whereStr := whereStr +' and a.income_date >='''+Edit1.Text+'''';
+   if Edit2.Text<>'' then
+      whereStr := whereStr +' and a.income_date <='''+Edit2.Text+'''';
+
+//--------------------------------------------------------------------
+   if Edit3.Text<>'' then
+      whereStr := whereStr +' and a.pcode >='''+Edit3.Text+'''';
+   if Edit4.Text<>'' then
+      whereStr := whereStr +' and a.pcode <='''+Edit4.Text+'''';
+//--------------------------------------------------------------------
+
+   if Edit5.Text<>'' then
+      whereStr := whereStr +' and a.income_no >='''+Edit5.Text+'''';
+   if Edit6.Text<>'' then
+      whereStr := whereStr +' and a.income_no <='''+Edit6.Text+'''';
+
+//--------------------------------------------------------------------
+   if Edit7.Text<>'' then
+      whereStr := whereStr +' and a.order_no like '''+Edit7.Text+'%''';
+
+//--------------------------------------------------------------------
+
+
+   if memo1.lines.Count >0 then
+      begin
+      For i := 0 to memo1.lines.Count-1 do
+         begin
+          if memo1Str='' then
+             memo1Str := memo1Str + Memo1.Lines.Strings[i]
+          else
+             memo1Str := memo1Str +''','''+ Memo1.Lines.Strings[i];
+
+         end; //end for
+     end; //end if memo1.lines
+
+   if memo1Str <>'' then
+      whereStr := whereStr + 'and a.pro_no in ('''+memo1Str+''') ' ;
+
+//--------------------------------------------------------------------
+   case RadioGroup1.ItemIndex Of
+      0:whereStr := whereStr + ' and a.flowflag = ''Z'' ';
+      1:whereStr := whereStr + ' and a.flowflag = ''P'' ';
+      2:whereStr := whereStr + ' and a.flowflag = ''X'' ';
+      3:whereStr := whereStr + ' and a.flowflag in (''Z'',''P'',''X'') ' ;
+   end;
+//---------------------------------------------------------------------
+
+
+   if (Edit1.Text ='') and (Edit2.Text ='') and (Edit3.Text ='') and
+      (Edit4.Text ='') and (Edit5.Text ='') and (Edit6.Text ='') and
+      (Edit7.Text ='') and (memo1.lines.text = '') then
+      begin
+          Edit_disable;
+          cdsMain.Active := False;
+          cdsMain.SQL.Text := '';
+          cdsMain.SQL.Text := 'select top 1 * from uis_income_m2 where income_date =''99999999''';
+          cdsMain.Active := True;
+          MessageBox(Handle,'未篩選，筆數太多無法顯示...','錯誤信息框',MB_ICONERROR);
+          //showMessage('未使用任何篩選筆數太多無法顯示...');
+      end
+   else
+      begin
+      SqlStr := 'Select count(*) as recordcount from uis_income_m2 a Where 1=1 ';
+      if Trim(whereStr)<>'' then
+         SqlStr := SqlStr + whereStr;
+
+    //  dsMain.DataSet := nil;     不可段開
+      cdsMain.Active := False;
+      cdsMain.SQL.Text := '';
+      cdsMain.SQL.Text := SqlStr;
+      cdsMain.Active := True;
+      if MessageDlg('資料筆數共 '+ intToStr(cdsMain.fieldByName('recordcount').AsInteger)+' 筆, 是否繼續執行？',mtconfirmation,[mbYes,mbNo],0) = mrYes then
+         begin
+
+         SqlStr := 'Select a.income_date, a.income_no, a.acc_user_id, b.fact_short_name, a.pro_no, '+
+                   'a.order_no, a.other, a.flowflag, a.status, a.this_ap, a.this_deduct, a.keep_money, '+
+                   'a.this_pay, a.pay_date, a.times, a.crncy, '+
+                   'a.desc_data from uis_income_m2 a left join uis_factory b ' +
+                   'on a.pcode = b.pcode Where 1=1 ';
+
+         if Trim(whereStr)<>'' then
+            SqlStr := SqlStr + whereStr;
+
+         cdsMain.Active := False;
+         cdsMain.SQL.Text := '';
+         cdsMain.SQL.Text := SqlStr;
+         cdsMain.Active := True;
+         Edit_disable;
+         end;
+      end;
+      Edit_disable;
+      //label10.Caption := UpperCase(edit5.Text);
+end;
+
+procedure TINC001.btnPrintClick(Sender: TObject);
+begin
+ListRepLayout1.PrintWithDialog;
+end;
+
+procedure TINC001.FormCreate(Sender: TObject);
+begin
+  inherited;
+  Memo1.Clear;
+  btnInsert.Enabled := false;
+  btnModify.Enabled := false;
+  btnDelete.Enabled := false;
+  RadioGroup1.Enabled := false;
+
+end;
+
+procedure TINC001.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key=#13 then
+    Edit2.SetFocus;
+end;
+
+procedure TINC001.Edit3KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    Edit4.SetFocus;
+end;
+
+procedure TINC001.Edit5KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if key =#13 then
+    edit6.SetFocus;
+end;
+
+procedure TINC001.btnCancelClick(Sender: TObject);
+begin
+  inherited;
+
+  Edit_disable;
+   cdsMain.Active := False;
+   cdsMain.SQL.Text := '';
+   cdsMain.SQL.Text := 'select top 1 * from uis_income_m2 where income_date =''99999999''';
+   cdsMain.Active := True;
+   Edit_disable;
+end;
+
+
+procedure TINC001.InfoDBGrid1CellClick(Column: TColumn);  //避免點擊DBGrid時造成新增刪除修改
+begin
+  inherited;
+  Edit_disable;
+
+end;
+
+procedure TINC001.InfoDBGrid1TitleClick(Column: TColumn); //避免點擊DBGrid排序時造成新增刪除修改
+begin
+  inherited;
+Edit_disable;
+end;
+
+initialization
+  RegisterPackageClass(TINC001);
+end.
