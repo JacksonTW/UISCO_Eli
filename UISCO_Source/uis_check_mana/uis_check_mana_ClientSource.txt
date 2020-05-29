@@ -15,10 +15,9 @@ type
     grdView: TInfoDBGrid;
     Splitter1: TSplitter;
     Panel1: TPanel;
-    blockMain: TScrollBox;
+    g: TScrollBox;
     edtCHECK_NO1: TInfoDBEdit;
     lblCHECK_NO1: TInfoLabel;
-    lblCHECK_TYPE1: TInfoLabel;
     edtCHECK_DATE1: TInfoDBEdit;
     lblCHECK_DATE1: TInfoLabel;
     edtCHECK_MONEY1: TInfoDBEdit;
@@ -65,11 +64,18 @@ type
     InfoLabel4: TInfoLabel;
     InfoDBEdit3: TInfoDBEdit;
     InfoLabel5: TInfoLabel;
-    InfoDBComboBox2: TInfoDBComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnModifyClick(Sender: TObject);
     procedure btnQueryClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
+    procedure InsertButtonClick(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure EditEnable;
+    procedure EditDisable;
+
+
 
   private
     { Private declarations }
@@ -88,19 +94,80 @@ implementation
 uses
   CommonUtils,AFM2BASEFMUtils,UserUtils;
 
+procedure TFMUIS_CHECK_MANA.EditEnable;
+begin
+   edtCHECK_DATE1.Enabled:= True;
+   InfoDBComboBox1.Enabled:= True;
+   InfoDBEdit1.Enabled:=True;
+   InfoDBEdit3.Enabled:=True;
+   edtCHECK_NO1.Enabled:=false;
+   edtORDER_NO1.Enabled:=True;
+   edtEndDate.Enabled:=True;
+   InfoDBEdit2.Enabled:=True;
+   edtCHECK_MONEY1.Enabled:=True;
+   InfoDBMemo1.Enabled:=True;
+   edtREFUND_DATE1.Enabled:=true;
+
+   edtCHECK_DATE1.Color:=clWindow;
+   InfoDBComboBox1.Color:=clWindow;
+   InfoDBEdit1.Color:=clWindow;
+   InfoDBEdit3.Color:=clWindow;
+   edtCHECK_NO1.Color:=clSilver;
+   edtORDER_NO1.Color:=clWindow;
+   edtEndDate.Color:=clWindow;
+   InfoDBEdit2.Color:=clWindow;
+   edtCHECK_MONEY1.Color:=clWindow;
+   InfoDBMemo1.Color:=clWindow;
+   edtREFUND_DATE1.Color:=clWindow;
+
+end;
+
+procedure TFMUIS_CHECK_MANA.EditDisable;
+begin
+   edtCHECK_DATE1.Enabled:= false;
+   InfoDBComboBox1.Enabled:= false;
+   InfoDBEdit1.Enabled:=false;
+   InfoDBEdit3.Enabled:=false;
+   edtCHECK_NO1.Enabled:=false;
+   edtORDER_NO1.Enabled:=false;
+   edtEndDate.Enabled:=false;
+   InfoDBEdit2.Enabled:=false;
+   edtCHECK_MONEY1.Enabled:=false;
+   InfoDBMemo1.Enabled:=false;
+   edtREFUND_DATE1.Enabled:=false;
+
+   edtCHECK_DATE1.Color:=clSilver;
+   InfoDBComboBox1.Color:=clSilver;
+   InfoDBEdit1.Color:=clSilver;
+   InfoDBEdit3.Color:=clSilver;
+   edtCHECK_NO1.Color:=clSilver;
+   edtORDER_NO1.Color:=clSilver;
+   edtEndDate.Color:=clSilver;
+   InfoDBEdit2.Color:=clSilver;
+   edtCHECK_MONEY1.Color:=clSilver;
+   InfoDBMemo1.Color:=clSilver;
+   edtREFUND_DATE1.Color:=clSilver;
+end;
+
+
 procedure TFMUIS_CHECK_MANA.FormCreate(Sender: TObject);
 begin
   inherited;
+  InfoDBComboBox1.Enabled:= false;
+  InfoDBComboBox1.Color:=clSilver;
 
   AA:=Trim(GetFieldParams('AA',UpperCase(Params)));
-
 end;
 
 procedure TFMUIS_CHECK_MANA.btnModifyClick(Sender: TObject);
 begin
+  InfoDBComboBox1.Enabled:= true;
+  InfoDBComboBox1.Color:=clWindow;
 
   if AA='2'  THEN
      BEGIN
+     //InfoDBComboBox1.Enabled:= true;
+     //InfoDBComboBox1.Color:=clWindow;
      edtREFUND_DATE1.Visible:=TRUE;
      edtREFUND_DATE1.Color:=clWindow;
      inherited;
@@ -108,17 +175,28 @@ begin
 
   if AA='3'  THEN
      BEGIN
+     //InfoDBComboBox1.Enabled:= true;
+     //InfoDBComboBox1.Color:=clWindow;
      edtREFUND_DATE1.Visible:=TRUE;
      edtREFUND_DATE1.Color:=clWindow;
      inherited;
+//**************
+//2020-05-28_Eli
+     EditEnable;
+//**************
      END;
 end;
 
 procedure TFMUIS_CHECK_MANA.btnQueryClick(Sender: TObject);
 begin
   //inherited;
+  InfoDBComboBox1.Enabled:= true;
+  InfoDBComboBox1.Color:=clWindow;
+
   if AA='3'  THEN
      BEGIN
+     //InfoDBComboBox1.Enabled:= true;
+     //InfoDBComboBox1.Color:=clWindow;
      edtREFUND_DATE1.Visible:=TRUE;
      edtREFUND_DATE1.Color:=clWindow;
      inherited;
@@ -126,6 +204,8 @@ begin
 
   if AA='2'  THEN
      BEGIN
+     //InfoDBComboBox1.Enabled:= true;
+     //InfoDBComboBox1.Color:=clWindow;
      edtREFUND_DATE1.Visible:=TRUE;
      edtREFUND_DATE1.Color:=clWindow;
      inherited;
@@ -135,7 +215,8 @@ end;
 
 procedure TFMUIS_CHECK_MANA.btnSaveClick(Sender: TObject);
 begin
-
+  InfoDBComboBox1.Enabled:= false;
+  InfoDBComboBox1.Color:=clSilver;
 
   if AA='1'  THEN      //保固票建立
      BEGIN
@@ -150,17 +231,17 @@ begin
                       ,VarArrayof
                       (
                         [
-                          cdsMain.FieldValues['check_no']
-                         ,cdsMain.FieldValues['fact_name']
-                         ,cdsMain.FieldValues['CHECK_TYPE']
+                          cdsMain.FieldValues['check_no']   //0
+                         ,cdsMain.FieldValues['fact_name']  //1
+                         ,cdsMain.FieldValues['CHECK_TYPE'] //2
                          ,floattostr(cdsMain.FieldValues['check_money'])
-                         ,getLoginUSER
-                         ,edtCHECK_DATE1.Field.Value
-                         ,cdsMain.FieldValues['DESC_DATA']
-                         ,cdsMain.FieldValues['order_no']
-                         ,cdsMain.FieldValues['PRO_no']
-                         ,cdsMain.FieldValues['BANK_NAME']
-                         ,cdsMain.FieldValues['end_date']
+                         ,getLoginUSER                      //4
+                         ,edtCHECK_DATE1.Field.Value        //5
+                         ,cdsMain.FieldValues['DESC_DATA']  //6
+                         ,cdsMain.FieldValues['order_no']   //7
+                         ,cdsMain.FieldValues['PRO_no']     //8
+                         ,cdsMain.FieldValues['BANK_NAME']  //9
+                         ,cdsMain.FieldValues['end_date']   //10
                          //,cdsMain.FieldValues['CHECK_DATE']
                         ]
                        )
@@ -172,18 +253,48 @@ begin
   if AA='2'  THEN     //保固票退回
      BEGIN
      //開立應收保證票據
-     CallServerMethod('UIS_check_mana','change_to_acc2',VarArrayof([cdsMain.FieldValues['check_no'],cdsMain.FieldValues['fact_name'],cdsMain.FieldValues['CHECK_TYPE'],floattostr(cdsMain.FieldValues['check_money']),getLoginUSER,edtCHECK_DATE1.Field.Value,cdsMain.FieldValues['DESC_DATA'],cdsMain.FieldValues['order_no'],cdsMain.FieldValues['PRO_no']]));
+     CallServerMethod('UIS_check_mana'
+                     ,'change_to_acc2'
+                     ,VarArrayof
+                      (
+                        [
+                          cdsMain.FieldValues['check_no']
+                         ,cdsMain.FieldValues['fact_name']
+                         ,cdsMain.FieldValues['CHECK_TYPE']
+                         ,floattostr(cdsMain.FieldValues['check_money'])
+                         ,getLoginUSER
+                         ,edtCHECK_DATE1.Field.Value
+                         ,cdsMain.FieldValues['DESC_DATA']
+                         ,cdsMain.FieldValues['order_no']
+                         ,cdsMain.FieldValues['PRO_no']
+                         ,cdsMain.FieldValues['BANK_NAME']
+                         ,cdsMain.FieldValues['end_date']
+                        ]
+                       )
+                      );
      //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
      end;
-
   //if AA='3'  THEN     //保固票查詢
-  //   BEGIN
-  //   inherited; //一般查詢
-  //   end;
+    // BEGIN
+     //inherited; //一般查詢
+     //EditDisable;
+     //end;
 
   inherited;
+end;
 
+procedure TFMUIS_CHECK_MANA.InsertButtonClick(Sender: TObject);
+begin
+  InfoDBComboBox1.Enabled:= true;
+  InfoDBComboBox1.Color:=clWindow;
+  inherited;
+end;
 
+procedure TFMUIS_CHECK_MANA.btnCancelClick(Sender: TObject);
+begin
+  InfoDBComboBox1.Enabled:= false;
+  InfoDBComboBox1.Color:=clSilver;
+  inherited;
 end;
 
 

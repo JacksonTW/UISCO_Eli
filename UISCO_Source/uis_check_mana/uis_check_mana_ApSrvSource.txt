@@ -23,22 +23,27 @@ type
   procedure InsertFlowRM(D_FLOW_ID,D_STEP_ID,aKEY,FLOW_ID,aRM : String);
   procedure InsertSlip_H(aSEQ_NO,aDT_SLIP,aAMT,aCREATE_DATE,aUserID,aDEPT_NO,aBILLNO : String);
   procedure InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,aID_SUB
-                          ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
-                          ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-                          const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
+       ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
+       ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+       const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
 
   public
     { Public declarations }
   end;
+
 var
   UIS_CHECK_MANA_SEL: TUIS_CHECK_MANA_SEL;
+
 implementation
+
 {$R *.DFM}
+
 uses
   CommonUtils,DATETIMEUTILS,UpdateAssistant;
 
-//---FUNCTION:InsertFlowRM---
-    procedure TUIS_CHECK_MANA_SEL.InsertFlowRM(D_FLOW_ID, D_STEP_ID, aKEY, FLOW_ID,aRM: String);
+//---FUNCTION: InserFlowRM (待辦)---
+    procedure TUIS_CHECK_MANA_SEL.InsertFlowRM(D_FLOW_ID, D_STEP_ID, aKEY, FLOW_ID,
+  aRM: String);
 var
   s : String;
 begin
@@ -50,13 +55,11 @@ begin
    Q1.ExecSQL;
 end;
 
-//---FUNCTION: InserSlip_D---
-procedure TUIS_CHECK_MANA_SEL.InsertSlip_D(
-                                            aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,  aID_SUB, aDBCR_CODE, aID_CRNCY
-                                          , aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,  aAM_ORG_CR, aNM_ACC, aNM_SUB
-                                          , aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-                                          const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String
-                                          );
+//---FUNCTION: InserSlip_D (明細檔)---
+procedure TUIS_CHECK_MANA_SEL.InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,
+  aID_SUB, aDBCR_CODE, aID_CRNCY, aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,
+  aAM_ORG_CR, aNM_ACC, aNM_SUB, aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
+  const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String);
 var
   aSQL : String;
 begin
@@ -73,7 +76,7 @@ begin
   Q1.ExecSQL;          // leo 20200302 調整 database alias 由HRS_ACC 到  BDEDatabase,否則 測試區 無法抓到傳票主檔資料,待辦會錯誤
 end;
 
-//---FUNCTION:InsertSlip_H---
+//---FUNCTION:InsertSlip_H (主檔)---
 procedure TUIS_CHECK_MANA_SEL.InsertSlip_H(aSEQ_NO, aDT_SLIP, aAMT, aCREATE_DATE,
   aUserID, aDEPT_NO,aBILLNO: String);
 var
@@ -85,7 +88,7 @@ begin
           ''',''D'',''SLIP'','+aAMT+','+aAMT+','''',''FG01'','''+aUserID+''','''+aCREATE_DATE+''','''+aBILLNO+''')';
 
           //**************
-          //2020-05-25_Eli_將[F]更改為[D 轉帳傳票]
+          //2020-05-25_Eli_將[F]更改為[D (轉帳傳票)]
           //**************
 
   Q1.SQL.Text := aSQL;
@@ -96,7 +99,7 @@ end;
 procedure TUIS_CHECK_MANA_SEL.change_to_acc1CallMethod(Params: Variant;
   out ReturnVal: Variant);
 var
-  aINCOME_NO,STATUS,str,str1,SUMMARY,TAX,T0,T1,T2,T3,T4,T5,T6,ID1,ID2,aLogin_id1,aLogin_id2,aSEQ_NO,aCREATE_DATE:STRING;
+  aINCOME_NO,STATUS,str,str1,SUMMARY,TAX,T0,T1,T2,T3,T4,T5,T6,ID1,ID2,aID2,aLogin_id1,aLogin_id2,aSEQ_NO,aCREATE_DATE:STRING;
   aDEPT_NO1,aDEPT_NO2,aDBCR_CODE,aDT_EXPIRE,aFG_SETL,aNN_NOTE,aID_SUB2,aNM_SUB2,NO_SLIP_P,CN_SEQ_P,aID_CRNCY:string;
   aNM_ACC,aNM_SUB,aRM_SLIP,pcode,aDT_AMT_RCV,aID_DEPT,aID_SAM,IN_STR,pay_date,N1,n2,n3,n4:string;
   i,j,K,K1,K2,S,m,o1,o2,o3,o4,aCHECK_DATE:integer;
@@ -104,15 +107,16 @@ var
   vInput:Variant;
   F:TextFile;
   A:array[0..3] of string;
+  aBill_NO : string;
 begin
   aINCOME_NO:=Params[0]; //票據號碼
   aLogin_id1:=Params[4];//作帳人員ID
   aLogin_id2:=Params[4];//會計人員ID
   pay_date:=Params[5]; //支付日期
-
+  aID2:=Params[2]; //取子科目(01-保證票據,02-其他)
   //**************
   //2020-05-26_Eli
-  aCHECK_DATE:=Params[6];  // 傳票日期(收票日期)
+  aCHECK_DATE:=Params[5];  // 傳票日期(收票日期)
   //**************
 
   //RAISE EXCEPTION.Create(aLogin_id2);
@@ -156,7 +160,7 @@ begin
 //--------------------------------------------------------------S:=StringOfChar(' ', 40)
   //T0:=qExec.Fields[0].Value;   //主項名稱
   T1:=Params[1];   //廠商簡稱
-  T2:=Params[8];   //專案代號
+  T2:=Params[8];   //專案代號 (pro_no)
   T3:=Params[3];   //金額
 
   //**************
@@ -175,7 +179,11 @@ begin
 
   //-----------------------------------------------------------
     ID1:='1992';   //會計科目
-    ID2:='00';   //會計科目 子科
+
+     //**************
+     //2020-05-27_Eli_[1992之子科為空白]
+     ID2:='';   //會計科目 子科
+     //**************
 
      //K1:=6-Length(ID1);         //計算會計科目需要的空白數量
      //K2:=12-Length(ID2);        //計算會計子科目需要的空白數量
@@ -184,7 +192,7 @@ begin
            aAM_DB := FloatToCurr(strtofloat(T3))*aRI_EXCHG;    //借方金額*匯率金額
            aAM_CR := 0;     //貸方金額
            //aNM_ACC:='';//科目名稱
-           //aNM_SUB:='';//子科名稱
+     aNM_SUB:='';//子科名稱
 
  //**************
  //2020-05-25_Eli
@@ -210,10 +218,11 @@ begin
       aID_SAM:=' ';
     end;
   //**************
+      aBill_NO:='';
 //---PROCESS:InsertSLip_D---
       InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO1,ID1,ID2
                    ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aINCOME_NO,T2,aID_SUB2,aNM_SUB2
+                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBill_NO,T2,aID_SUB2,aNM_SUB2
                    ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
 
   //   S:=S+10;  //新增明細序號
@@ -223,7 +232,7 @@ begin
 //---應付帳款---
      str:=inttostr(strtoint(summary));  //應付金額
        ID1:='2931';
-       ID2:=Params[2];
+       ID2:=copy(aID2,1,2);    //取CHECK_TYPE頭兩個值
 
      //**************
        //2020-05-26_Eli_當[子科目=01,02]->[子科名稱=保證票據,其他]
@@ -244,12 +253,27 @@ begin
        aAM_ORG_CR:=strtocurr(str);//貸方原幣金額
        S:=S+10;                   //新增明細序號
        T3:='0';
-       aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO; //備註
-       //aID_SAM:=aLogin_id2;
 
+       //**************
+       //2020-05-27_Eli_當[子科目=01,02]->[摘要=不含到期日,含到期日(T6)]
+       if(ID2='01')then
+        begin
+            aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO+' '+T5; //摘要
+        end;
+       if(ID2='02')then
+        begin
+            aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO+' '+T5+' '+T6; //摘要
+        end;
+     //**************
+
+
+
+       //aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO; //備註
+       //aID_SAM:=aLogin_id2;
+       aBill_NO:='';       //20200527 from 媛恩
        InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO2,ID1,ID2
                    ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aINCOME_NO,T2,aID_SUB2,aNM_SUB2
+                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBill_NO,T2,aID_SUB2,aNM_SUB2
                    ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
 
 
@@ -351,7 +375,7 @@ T3:=Params[3];   //金額
 
 
     ID1:='2931';   //會計科目
-    ID2:='00';   //會計科目子科
+    //ID2:='00';   //會計科目子科
      //K1:=6-Length(ID1);         //計算會計科目需要的空白數量
      //K2:=12-Length(ID2);        //計算會計子科目需要的空白數量
   //-----------------------------------------------------------
@@ -389,7 +413,7 @@ T3:=Params[3];   //金額
      str:=inttostr(strtoint(summary));  //應付金額
 
        ID1:='1992';
-       ID2:=pcode;
+       //ID2:=pcode;
        aAM_DB := 0;    //借方金額*匯率金額
        aDEPT_NO1:='';
        aDBCR_CODE:='C';
