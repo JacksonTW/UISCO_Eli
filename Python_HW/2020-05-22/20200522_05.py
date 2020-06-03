@@ -1,10 +1,11 @@
 import random
-count =1
+count = 1
 randList = []
 tempList = []
 
 for i in range(0, 50):
     tempList.append(0)
+
 while count < 6:
     n = random.randint(1, 49)
     if tempList[n] == 0:
