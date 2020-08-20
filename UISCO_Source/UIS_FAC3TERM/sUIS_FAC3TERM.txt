@@ -22,10 +22,6 @@ type
     { Private declarations }
   procedure InsertFlowRM(D_FLOW_ID,D_STEP_ID,aKEY,FLOW_ID,aRM : String);
   procedure InsertSlip_H(aSEQ_NO,aDT_SLIP,aAMT,aCREATE_DATE,aUserID,aDEPT_NO,aBILLNO : String);
-  procedure InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,aID_SUB
-       ,aDBCR_CODE,aID_CRNCY,aRI_EXCHG,aAM_DB,aAM_CR,aAM_ORG_DB,aAM_ORG_CR
-       ,aNM_ACC,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-       const aNO_SLIP_P : String='';const aCN_SEQ_P : String='';const aDT_AMT_RCV : String='';const aID_SAM : String='');
 
   public
     { Public declarations }
@@ -55,26 +51,6 @@ begin
    Q1.ExecSQL;
 end;
 
-//---FUNCTION: InserSlip_D (明細檔)---
-procedure TsUIS_FAC3TERM_SEL.InsertSlip_D(aSEQ_NO, aSeqCnt, aDEPT_NO, aID_ACC,
-  aID_SUB, aDBCR_CODE, aID_CRNCY, aRI_EXCHG, aAM_DB, aAM_CR, aAM_ORG_DB,
-  aAM_ORG_CR, aNM_ACC, aNM_SUB, aRM_SLIP, aDT_EXPIRE, aNN_NOTE,aBILLNO,aNO_PROJ,aID_SUB2,aNM_SUB2,aFG_SETL : String;
-  const aNO_SLIP_P, aCN_SEQ_P, aDT_AMT_RCV, aID_SAM: String);
-var
-  aSQL : String;
-begin
-  aSQL := 'INSERT INTO FAC3SLIP_D(NO_APPLY,CN_SEQ,ID_DEPT,ID_ACC,'+
-          'ID_SUB,FG_DBCR,ID_CRNCY,RI_EXCHG,AM_DB,'+
-          'AM_CR,AM_ORG_DB,AM_ORG_CR,NM_ACC,NM_SUB,'+
-          'RM_SLIP,NN_NOTE,BILLNO,NO_PROJ,ID_SUB2,NM_SUB2,DT_EXPIRE,'+
-          'FG_SETL,NO_SLIP_P,CN_SEQ_P,ID_SAM ) '+
-          'VALUES('''+aSEQ_NO+''','''+aSeqCnt+''','''+aDEPT_NO+''','''+aID_ACC+
-          ''','''+aID_SUB+''','''+aDBCR_CODE+''','''+aID_CRNCY+''','+aRI_EXCHG+','+aAM_DB+
-          ','+aAM_CR+','+aAM_ORG_DB+','+aAM_ORG_CR+','''+aNM_ACC+''','''+aNM_SUB+
-          ''','''+aRM_SLIP+''','''+aNN_NOTE+''','''+aBILLNO+''','''+aNO_PROJ+''','''+aID_SUB2+''','''+aNM_SUB2+''','''+aDT_EXPIRE+''','''+aFG_SETL+''','''+aNO_SLIP_P+''','''+aCN_SEQ_P+''','''+aID_SAM+''')';
-  Q1.SQL.Text := aSQL;
-  Q1.ExecSQL;          // leo 20200302 調整 database alias 由HRS_ACC 到  BDEDatabase,否則 測試區 無法抓到傳票主檔資料,待辦會錯誤
-end;
 
 //---FUNCTION:InsertSlip_H (主檔)---
 procedure TsUIS_FAC3TERM_SEL.InsertSlip_H(aSEQ_NO, aDT_SLIP, aAMT, aCREATE_DATE,
@@ -82,18 +58,24 @@ procedure TsUIS_FAC3TERM_SEL.InsertSlip_H(aSEQ_NO, aDT_SLIP, aAMT, aCREATE_DATE,
 var
   aSQL : String;
 begin
-  aSQL := 'INSERT INTO FAC3SLIP(NO_APPLY,ID_APPLY,ID_DEPT_APPLY,DT_APPLY,DT_SLIP,'+
-          'ID_CLASS ,ID_KIND ,AM_DB,AM_CR ,RM ,BILLTYPE ,UPDATE_USER ,UPDATE_DATE,BILLNO) '+
-          'VALUES('''+aSEQ_NO+''','''+aUserID+''','''+aDEPT_NO+''','''+aCREATE_DATE+''','''+aDT_SLIP+
-          ''',''D'',''SLIP'','+aAMT+','+aAMT+','''',''FG01'','''+aUserID+''','''+aCREATE_DATE+''','''+aBILLNO+''')';
+  aSQL := 'INSERT INTO UIS_FAC3TERM
+              (NO_APPLY,ID_APPLY,ID_DEPT_APPLY,DT_APPLY,DT_SLIP,ID_CLASS ,ID_KIND ,AM_DB,AM_CR ,RM ,BILLTYPE ,UPDATE_USER ,UPDATE_DATE,BILLNO)
+
+          VALUES(aSEQ_NO,aUserID,aDEPT_NO,aCREATE_DATE,aDT_SLIP,D,SLIP,aAMT,aAMT,  ,FG01,aUserID,aCREATE_DATE,aBILLNO);
 
           //**************
           //2020-05-25_Eli_將[F]更改為[D (轉帳傳票)]
           //**************
 
   Q1.SQL.Text := aSQL;
-  Q1.ExecSQL;               // leo 20200302 調整 database alias 由HRS_ACC 到  BDEDatabase,否則 測試區 無法抓到傳票主檔資料,待辦會錯誤
+  Q1.ExecSQL;
 end;
+--------------------欄位對應--------------------
+UIS_FAC3TERM
+            NO_APPLY, ID_APPLY, ID_DEPT_APPLY,  DT_APPLY,       DT_SLIP,  ID_CLASS, ID_KIND,  AM_DB,  AM_CR,  RM, BILLTYPE, UPDATE_USER,  UPDATE_DATE,  BILLNO)
+VALUES      aSEQ_NO,  aUserID,  aDEPT_NO,       aCREATE_DATE,   aDT_SLIP, D,        SLIP,     aAMT,   aAMT,     , FG01,     aUserID,      aCREATE_DATE, aBILLNO);
+-----------------------------------------------
+
 
 //---FUNCTION:acc1_保固票建立---
 procedure TsUIS_FAC3TERM_SEL.change_to_acc1CallMethod(Params: Variant;
@@ -109,11 +91,11 @@ var
   A:array[0..3] of string;
   aBill_NO : string;
 begin
-  aINCOME_NO:=Params[0]; //票據號碼
-  aLogin_id1:=Params[4];//作帳人員ID
-  aLogin_id2:=Params[4];//會計人員ID
-  pay_date:=Params[5]; //支付日期
-  aID2:=Params[2]; //取子科目(01-保證票據,02-其他)
+  aINCOME_NO:=Params[0];  //票據號碼 --check_no
+  aLogin_id1:=Params[4];  //作帳人員ID --getLoginUSER
+  aLogin_id2:=Params[4];  //會計人員ID --getLoginUSER
+  pay_date:=Params[5];    //支付日期 --edtCHECK_DATE1.Field.Value
+  aID2:=Params[2]; //取子科目(01-保證票據,02-其他) --CHECK_TYPE
   //**************
   //2020-05-26_Eli
   aCHECK_DATE:=Params[5];  // 傳票日期(收票日期)
@@ -219,11 +201,6 @@ begin
     end;
   //**************
       aBill_NO:='';
-//---PROCESS:InsertSLip_D---
-      InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO1,ID1,ID2
-                   ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBill_NO,T2,aID_SUB2,aNM_SUB2
-                   ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
 
   //   S:=S+10;  //新增明細序號
  //    qExec.Next;
@@ -271,11 +248,6 @@ begin
        //aRM_SLIP:=T0+' '+T1+' '+T4+' '+aINCOME_NO; //備註
        //aID_SAM:=aLogin_id2;
        aBill_NO:='';       //20200527 from 媛恩
-       InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO2,ID1,ID2
-                   ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aBill_NO,T2,aID_SUB2,aNM_SUB2
-                   ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
-
 
 
        InsertSlip_H(aSEQ_NO,aCREATE_DATE,CurrToStr(aAM_CR),aCREATE_DATE,aLogin_id2,aID_DEPT,aINCOME_NO);
@@ -395,13 +367,6 @@ T3:=Params[3];   //金額
            aAM_ORG_DB:=FloatToCurr(strtofloat(T3));
            aID_SAM:=aLogin_id1;
 
-
-
-      InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO1,ID1,ID2
-                   ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aINCOME_NO,T2,aID_SUB2,aNM_SUB2
-                   ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
-
  //    S:=S+10;  //新增明細序號
 
  //    qExec.Next;
@@ -422,13 +387,6 @@ T3:=Params[3];   //金額
        S:=S+10;                   //新增明細序號
        T3:='0';
        aID_SAM:=aLogin_id2;
-
-       InsertSlip_D(aSEQ_NO,Format('%.4d',[S]),aDEPT_NO2,ID1,ID2
-                   ,aDBCR_CODE,aID_CRNCY,CurrToStr(aRI_EXCHG),CurrToStr(aAM_DB),CurrToStr(aAM_CR),T3,CurrToStr(aAM_ORG_CR),aNM_ACC
-                   ,aNM_SUB,aRM_SLIP,aDT_EXPIRE,aNN_NOTE,aINCOME_NO,T2,aID_SUB2,aNM_SUB2
-                   ,aFG_SETL,NO_SLIP_P,CN_SEQ_P,aDT_AMT_RCV,aID_SAM);
-
-
 
        InsertSlip_H(aSEQ_NO,aCREATE_DATE,CurrToStr(aAM_CR),aCREATE_DATE,aLogin_id2,aID_DEPT,aINCOME_NO);
 

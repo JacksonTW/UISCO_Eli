@@ -1,4 +1,4 @@
-sunit UIS_CHECK_MANA_FMUIS_CHECK_MANA;
+sunit UIS_FAC3TERM;
 
 interface
 
@@ -94,6 +94,7 @@ implementation
 uses
   CommonUtils,AFM2BASEFMUtils,UserUtils;
 
+//-----
 procedure TFMUIS_CHECK_MANA.EditEnable;
 begin
    edtCHECK_DATE1.Enabled:= True;
@@ -159,59 +160,9 @@ begin
   AA:=Trim(GetFieldParams('AA',UpperCase(Params)));
 end;
 
-procedure TFMUIS_CHECK_MANA.btnModifyClick(Sender: TObject);
-begin
-  InfoDBComboBox1.Enabled:= true;
-  InfoDBComboBox1.Color:=clWindow;
+// AA=1->建立，  AA=2->退回， AA=3->查詢
+//-----
 
-  if AA='2'  THEN
-     BEGIN
-     //InfoDBComboBox1.Enabled:= true;
-     //InfoDBComboBox1.Color:=clWindow;
-     edtREFUND_DATE1.Visible:=TRUE;
-     edtREFUND_DATE1.Color:=clWindow;
-     inherited;
-     END;
-
-  if AA='3'  THEN
-     BEGIN
-     //InfoDBComboBox1.Enabled:= true;
-     //InfoDBComboBox1.Color:=clWindow;
-     edtREFUND_DATE1.Visible:=TRUE;
-     edtREFUND_DATE1.Color:=clWindow;
-     inherited;
-//**************
-//2020-05-28_Eli
-     EditEnable;
-//**************
-     END;
-end;
-
-procedure TFMUIS_CHECK_MANA.btnQueryClick(Sender: TObject);
-begin
-  //inherited;
-  InfoDBComboBox1.Enabled:= true;
-  InfoDBComboBox1.Color:=clWindow;
-
-  if AA='3'  THEN
-     BEGIN
-     //InfoDBComboBox1.Enabled:= true;
-     //InfoDBComboBox1.Color:=clWindow;
-     edtREFUND_DATE1.Visible:=TRUE;
-     edtREFUND_DATE1.Color:=clWindow;
-     inherited;
-     END;
-
-  if AA='2'  THEN
-     BEGIN
-     //InfoDBComboBox1.Enabled:= true;
-     //InfoDBComboBox1.Color:=clWindow;
-     edtREFUND_DATE1.Visible:=TRUE;
-     edtREFUND_DATE1.Color:=clWindow;
-     inherited;
-     END;
-
-end;
 
 procedure TFMUIS_CHECK_MANA.btnSaveClick(Sender: TObject);
 begin
@@ -226,26 +177,22 @@ begin
      //2020-05-25_Eli_新增[BANK_NAME,end_date],order_no為訂單號
      //**************
 
-     CallServerMethod('UIS_check_mana'
-                      ,'change_to_acc1'
-                      ,VarArrayof
-                      (
-                        [
-                          cdsMain.FieldValues['check_no']   //0
-                         ,cdsMain.FieldValues['fact_name']  //1
-                         ,cdsMain.FieldValues['CHECK_TYPE'] //2
-                         ,floattostr(cdsMain.FieldValues['check_money'])
-                         ,getLoginUSER                      //4
-                         ,edtCHECK_DATE1.Field.Value        //5
-                         ,cdsMain.FieldValues['DESC_DATA']  //6
-                         ,cdsMain.FieldValues['order_no']   //7
-                         ,cdsMain.FieldValues['PRO_no']     //8
-                         ,cdsMain.FieldValues['BANK_NAME']  //9
-                         ,cdsMain.FieldValues['end_date']   //10
-                         //,cdsMain.FieldValues['CHECK_DATE']
-                        ]
-                       )
-                       );
+     CallServerMethod('UIS_check_mana','change_to_acc1',VarArrayof(
+                                                                    [
+                                                                     cdsMain.FieldValues['check_no']   //0
+                                                                    ,cdsMain.FieldValues['fact_name']  //1
+                                                                    ,cdsMain.FieldValues['CHECK_TYPE'] //2
+                                                                    ,floattostr(cdsMain.FieldValues['check_money'])
+                                                                    ,getLoginUSER    //4
+                                                                    ,edtCHECK_DATE1.Field.Value        //5
+                                                                    ,cdsMain.FieldValues['DESC_DATA']  //6
+                                                                    ,cdsMain.FieldValues['order_no']   //7
+                                                                    ,cdsMain.FieldValues['PRO_no']     //8
+                                                                    ,cdsMain.FieldValues['BANK_NAME']  //9
+                                                                    ,cdsMain.FieldValues['end_date']   //10
+                                                                  //,cdsMain.FieldValues['CHECK_DATE']
+                                                                    ])
+                      );
 
      //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
      end;
@@ -253,25 +200,24 @@ begin
   if AA='2'  THEN     //保固票退回
      BEGIN
      //開立應收保證票據
-     CallServerMethod('UIS_check_mana'
-                     ,'change_to_acc2'
-                     ,VarArrayof
-                      (
-                        [
-                          cdsMain.FieldValues['check_no']
-                         ,cdsMain.FieldValues['fact_name']
-                         ,cdsMain.FieldValues['CHECK_TYPE']
-                         ,floattostr(cdsMain.FieldValues['check_money'])
-                         ,getLoginUSER
-                         ,edtCHECK_DATE1.Field.Value
-                         ,cdsMain.FieldValues['DESC_DATA']
-                         ,cdsMain.FieldValues['order_no']
-                         ,cdsMain.FieldValues['PRO_no']
-                         ,cdsMain.FieldValues['BANK_NAME']
-                         ,cdsMain.FieldValues['end_date']
-                        ]
-                       )
-                      );
+
+     CallServerMethod('UIS_check_mana','change_to_acc2',VarArrayof(
+                                                                    [
+                                                                     cdsMain.FieldValues['check_no']   //0
+                                                                    ,cdsMain.FieldValues['fact_name']  //1
+                                                                    ,cdsMain.FieldValues['CHECK_TYPE'] //2
+                                                                    ,floattostr(cdsMain.FieldValues['check_money'])
+                                                                    ,getLoginUSER    //4
+                                                                    ,edtCHECK_DATE1.Field.Value        //5
+                                                                    ,cdsMain.FieldValues['DESC_DATA']  //6
+                                                                    ,cdsMain.FieldValues['order_no']   //7
+                                                                    ,cdsMain.FieldValues['PRO_no']     //8
+                                                                    ,cdsMain.FieldValues['BANK_NAME']  //9
+                                                                    ,cdsMain.FieldValues['end_date']   //10
+                                                                  //,cdsMain.FieldValues['CHECK_DATE']
+                                                                    ])
+
+    );
      //inherited;                     // leo 20200302 新增完後 確認 鍵又會跳出, 先 mark
      end;
   //if AA='3'  THEN     //保固票查詢
@@ -280,20 +226,6 @@ begin
      //EditDisable;
      //end;
 
-  inherited;
-end;
-
-procedure TFMUIS_CHECK_MANA.InsertButtonClick(Sender: TObject);
-begin
-  InfoDBComboBox1.Enabled:= true;
-  InfoDBComboBox1.Color:=clWindow;
-  inherited;
-end;
-
-procedure TFMUIS_CHECK_MANA.btnCancelClick(Sender: TObject);
-begin
-  InfoDBComboBox1.Enabled:= false;
-  InfoDBComboBox1.Color:=clSilver;
   inherited;
 end;
 
