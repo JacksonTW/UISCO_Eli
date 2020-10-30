@@ -487,24 +487,34 @@ border-radius: 3px;
 color: #000;
 background: #e5e5e5;
 }
-#links {
-float: right;
-width: 50%;
-position: relative;
-left: -50%;
-overflow: hidden;
+
+
+
+
+
+
+
+#links
+{
+  float: right;
+  width: 50%;
+  position: relative;
+  left: -50%;
+  overflow: hidden;
 }
 #links-row-1,
 #links-row-2 {
 width: 310px;
 overflow: hidden;
 }
+
 #links-row-1 {
 float: left;
 }
 #links-row-2 {
 float: right;
 }
+
 .box {
 margin: 0 auto 10px;
 }
