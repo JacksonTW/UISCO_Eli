@@ -305,15 +305,15 @@ a:hover {color:#666;}
         {
           margin: 10px 0;
         }
-          .article-body a{color:#369;}
-          .article-body a:hover{color:#91b8c1;}
           .article-content
           {
-            margin: 15px;
-            font-size:13px;
+            width:680px;
+            margin:10px 0px 10px 0px;
+            font-size: 16pt;
             line-height: 170%;
-            letter-spacing:0.05em;
-            color:#444;
+            letter-spacing: 0.4px;
+            color:#636363;
+            text-align: justify;
           }
           .article-content a
           {
@@ -321,54 +321,29 @@ a:hover {color:#666;}
             border-bottom:1px dashed #91b8c1;
             padding-bottom:1px;
           }
-          .bookmark,
-          .author,
-          .forward
-          {
-            text-align: right;
-            color:#666;
-            line-height:140%;
-          }
 
-        .article-footer
-        {
-          overflow:hidden;
-          border-top: 1px dashed #ccc;
-          padding-top:5px;
-          color:#363636;
-          line-height:140%;
-        }
-          .refer
+          .article-foot
           {
-            float: left;
-            width: 290px;
+            border-bottom: 1px dotted #ccc;
+            color:#8a8a8a;
+            line-height:120%;
+            width:680px;
+            padding-bottom: 2px;
           }
-          .history
-          {
-            float: right;
-            width: 290px;
-          }
-          .back-to-top
-          {
-            clear: both;
-            text-transform: uppercase;
-            font: 10px Century Gothic;
-            letter-spacing:0;
-            text-align: right;
-          }
-            .back-to-top a
+            .refer
             {
-              background:#aaa;
-              padding: 0px 3px;
-              line-height: 20px;
-              color:#fff;
+              color: #999999;
+              width: 680px;
+              margin-left: 3px;
+              font-size: 10pt;
+              line-height: 150%;
             }
-            .back-to-top a:hover
+            .refer a
             {
-              background:#fff;
-              color:#ccc;
+              color: #8a8a8a;
+              padding-left: 3px;
             }
-
+            back-to-top{display: none;}
 /*--------------------------list*/
       .main-list
       {
@@ -649,23 +624,27 @@ a:hover {color:#666;}
 /*--------------------------pages*/
   .page
   {
-    margin: 10px 0px;
-    font-size:11px;
+    margin:60px auto;
+    font-size: 26px;
     font-family: Century Gothic;
     text-align: center;
+    width: 700px;
   }
     .page a
     {
-      margin: 0 5px;
+      margin:0 5px;
       color:#555;
-      padding: 0 3px;
+      padding: 0 10px;
+      border: 1px dotted #ccc;
+      -webkit-border-radius:4px;
     }
     .page a:hover,
     .page span
     {
-      background:#eee;
-      padding: 0 3px;
-      color:#33;
+      background: #4ba6df;
+      padding: 0 10px;
+      color:#fff;
+      -webkit-border-radius:4px;
     }
 
 /*--------------------------links*/
