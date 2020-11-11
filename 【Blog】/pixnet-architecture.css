@@ -744,30 +744,75 @@ padding: 0 10px;
   -webkit-border-radius: 4px;
   }
 
-/*--------------------------links*/
-#links{
-
-  float:left;
-
+/*--------------------------links----------*/
+#links{ float:left;  }
+  #links-row-1
+  {
+    width:240px;
+    float:left;
+    margin-left:30px;
+    overflow:hidden;
   }
+/*----------links1 detail----------*/
+/* 最新留言.熱門文章.最新文章.新聞交換 */
+    #latest-comment{}
+      #latest-comment .box-title{}
+      #latest-comment .box-text{}
+        #latest-comment li{}
+        #latest-comment span{}
+        #latest-comment li a{}
 
+    #hot-article{}
+      #hot-article .box-title{}
+      #hot-article .box-text{}
+        #hot-article ul{}
+          #hot-article li{}
+          #hot-article span{}
 
-  #links-row-1 {
-  width:240px;
-  float:left;
-  margin-left:30px;
-  overflow:hidden;
+    #recent-article{}
+      #recent-article .box-title{}
+      #recent-article .box-text{}
+        #recent-article li{}
 
+    #feed{}
+      #feed .box-title{}
+      #feed .box-text{}
+
+/*----------------------------------------*/
+
+  #links-row-2
+  {
+    width: 240px ;
+    float:left;
+    position:relative ;
+    right: -740px;
+    top:0px;
+    overflow: hidden ;
   }
+/*----------links2 detail----------*/
+/* 個人資料.參觀人氣.誰來我家.文章分類.月曆 */
 
-  #links-row-2 {
-  width: 240px ;
-  float:left;
-  position:relative ;
-  right: -740px;
-  top:0px;
-  overflow: hidden ;
-  }
+    #user-info{}
+    #counter{}
+    #visitor{}
+    #categury{}
+    #calender{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   .box{
   margin: 15px 0;
@@ -882,6 +927,8 @@ padding: 0 10px;
   top: 60px;
   left:30px;
   }
+
+
   #recent-article{}
   #recent-article li{
   border-bottom:1px dotted #ccc;
@@ -1157,7 +1204,7 @@ padding: 0 10px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   }
-  }
+
 
   #category {}
   #category h6{color:#369}
