@@ -794,18 +794,45 @@ padding: 0 10px;
 
     #user-info{}
     #counter{}
+      #counter .box-title{}
+      #counter .box-text{}
+        #counter .box-text li{}
+        #counter SPAN{}
+
     #visitor{}
+      #visitor .box-title{}
+      #visitor .box-text{}
+        #visitor IMG{}
+        #visitor .box-text ul{}
+        #visitor .box-text li a{}
+        #visitor .box-text li a:hover{}
+        #visitor .box-more{}
+
     #categury{}
-    #calender{}
+      #categury .box-title{}
+      #categury .box-text{}
+      #categury .box-more{}
+        #categury .box-more img{}
+        #categury ul li{}
+        #categury .inner-box h6{}
+        #categury .inner-box img{}
+        #categury .inner-box ul li a{}
+        #categury .inner-box ul li a:hover{}
 
+    #calendar{}
+      #calendar .box-title{}
+      #calendar .box-text{}
+        #calendar table{}
+          #calendar th{}
+          #calendar td{}
+          #calendar td a{}
+          #calendar td a:hover{}
 
-
-
-
-
-
-
-
+          #calendar .mouth-nav{}
+          #calendar .cal-backward{}
+          #calendar .current-mounth{}
+          #calendar .cal-forward{}
+          #calendar .weekday{}
 
 
 
